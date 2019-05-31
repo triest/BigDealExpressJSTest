@@ -3,7 +3,7 @@ var express = require('express');
 const Sequelize = require("sequelize");                                                     const sequelize = new Sequelize("test", "qt", "allowmetouse", {
   dialect: "postgres",
   host: "localhost",
-  port: "5032"
+  port: "5432"
 });                                                                                                                                                                                                                                                                                    
 //var users = require('db/users');
 
