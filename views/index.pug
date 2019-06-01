@@ -1,9 +1,10 @@
-extends layout
+<head>
+<title>Post test</title>
+</head>
 
-block content
-  h1= "title"
-  p Welcome to 
-
-
-   each user in users
-            <li>1</li>
+<body>
+<ul>
+each user in users
+    <li>#{user.name}</li>
+</ul>
+</body>

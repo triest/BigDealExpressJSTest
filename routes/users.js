@@ -1,10 +1,31 @@
 //import users from './db/users';
+//import mysql2 from 'mysql2';
+
 var express = require('express');
-const Sequelize = require("sequelize");                                                     const sequelize = new Sequelize("test", "yourname", "yourname", {
+const Sequelize = require("sequelize");
+/*const sequelize = new Sequelize("postgres", "postgres", "postgres", {
   dialect: "postgres",
-  host: "localhost",
-  port: "5432"
-});                                                                                                                                                                                                                                                                                    
+  host: "127.0.0.1",
+  port: "5432",
+});
+*/
+/*const sequelize = new Sequelize({
+    database: 'db',
+    username: 'postgres',
+    password: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    dialect: 'postgres'
+});*/
+const sequelize = new Sequelize({
+    database: 'expressjs',
+    username: 'root',
+    password: '',
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql'
+});
+
 //var users = require('db/users');
 
 const UserTest = sequelize.define("userTest", {
@@ -37,14 +58,13 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   sequelize.sync().then(result=>{
-  })
- users=UserTest.findAll({raw:true}).then(UserTest=>{
+  });
+ UserTest.findAll({raw:true}).then(data=>{
+     res.render("index", {
+         users:data
+     });
   }).catch(err=>console.log("error"));
-   
-  console.log(users)
-  res.render("index", {
-    users:users
-});
+
 });
 
 /* GET users listing. */
@@ -58,7 +78,12 @@ router.post('/add', function(req, res, next) {
   })
   .catch(err=> console.log(err));
 
-  console.log(req.body); // this is what you want           
+    sequelize.sync().then(result=>{
+        //console.log(result);
+    }).catch();
+
+
+  //console.log(req.body); // this is what you want
   if(!req.body.name) {                                                                                                                                                                                        
     return res.status(400).send({
       success: 'false',
