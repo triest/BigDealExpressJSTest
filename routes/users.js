@@ -67,6 +67,23 @@ router.get('/', function(req, res, next) {
 
 });
 
+router.get('/:id', function (request, response) {
+    sequelize.sync().then(result=>{
+    });
+
+    var id=request.params.id;
+
+    UserTest.findByPk(id).then(data=>{
+        res.render("view", {
+            user:data
+        });
+      // console.log(data)
+    }).catch(err=>console.log("error"));
+
+   response.render("view",);
+});
+
+
 /* GET users listing. */
 router.get('/add', function(req, res, next) {
   res.render('add_user', { title: 'Expresqs' });

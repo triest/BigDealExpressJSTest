@@ -4,7 +4,11 @@
 
 <body>
 <ul>
+<table border="1">
 each user in users
-    <li>#{user.name}</li>
-</ul>
+    <tr>
+    <td> <p>#{user.name}</p></td>
+    <td><a href="/users/#{user.id}">Подробно</a></td>
+    </tr>
+<table>
 </body>
