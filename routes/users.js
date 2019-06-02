@@ -67,20 +67,56 @@ router.get('/', function(req, res, next) {
 
 });
 
-router.get('/:id', function (request, response) {
+router.get('/:id', function (req, res) {
     sequelize.sync().then(result=>{
     });
 
-    var id=request.params.id;
+    var id=req.params.id;
 
     UserTest.findByPk(id).then(data=>{
         res.render("view", {
             user:data
         });
-      // console.log(data)
-    }).catch(err=>console.log("error"));
+    }).catch(err=>console.log(err.toString()));
+});
 
-   response.render("view",);
+router.get('/edit/:id', function (req, res) {
+    sequelize.sync().then(result=>{
+    });
+
+    var id=req.params.id;
+
+    UserTest.findByPk(id).then(data=>{
+        res.render("edit", {
+            user:data
+        });
+    }).catch(err=>console.log(err.toString()));
+ /*   UserTest.update({ name: req.body.name }, {
+        where: {
+            id: id
+        }
+    }).then((res) => {
+        console.log(res);
+    });
+*/
+});
+
+
+router.put('/:id', function (req, res) {
+    sequelize.sync().then(result=>{
+    });
+    let idPar=req.params.id;
+    let name=req.query.name;
+    console.log(name);
+    UserTest.update(
+        {name:name},
+        {where:{
+            id:idPar}
+        }
+    ).
+     then()
+     .catch(console.log("err"));
+   res.send("ok");
 });
 
 

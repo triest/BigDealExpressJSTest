@@ -1,7 +1,11 @@
 <head>
-<title>Post test</title>
+<title>Deltail user #{user.name}</title>
 </head>
 
 <body>
-     #{user.name}
+
+<p>#{user.name}</p>
+<td><a href="/users/edit/#{user.id}">Редактировать</a></td>
+<br>
+<a href="/users">Назад</a>
 </body>
