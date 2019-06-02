@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7350767b-621b-4603-84aa-b99e789c84c3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/views/edit.pug" afterDir="false" />
+    <list default="true" id="7350767b-621b-4603-84aa-b99e789c84c3" name="Default" comment="Add ling and get single user">
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/add_user.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/add_user.pug" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/view.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/view.pug" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,11 +37,12 @@
       <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+            <state relative-caret-position="385">
+              <caret line="134" column="3" lean-forward="true" selection-start-line="134" selection-start-column="3" selection-end-line="134" selection-end-column="3" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#1849#2002#0" />
+                <element signature="e#2438#2568#0" />
               </folding>
             </state>
           </provider>
@@ -258,7 +256,7 @@
       <workItem from="1559342129769" duration="1055000" />
       <workItem from="1559370723214" duration="13141000" />
       <workItem from="1559401328193" duration="15636000" />
-      <workItem from="1559460597793" duration="12274000" />
+      <workItem from="1559460597793" duration="14496000" />
     </task>
     <task id="LOCAL-00001" summary="Connect to mysql and view users list">
       <created>1559417076522</created>
@@ -278,7 +276,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43209000" />
+    <option name="totallyTimeSpent" value="45431000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -344,6 +342,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#1849#2002#0" />
+            <element signature="e#2438#2568#0" />
           </folding>
         </state>
       </provider>
@@ -406,6 +405,7 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#1849#2002#0" />
+            <element signature="e#2438#2568#0" />
           </folding>
         </state>
       </provider>
@@ -604,11 +604,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+        <state relative-caret-position="385">
+          <caret line="134" column="3" lean-forward="true" selection-start-line="134" selection-start-column="3" selection-end-line="134" selection-end-column="3" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#1849#2002#0" />
+            <element signature="e#2438#2568#0" />
           </folding>
         </state>
       </provider>
