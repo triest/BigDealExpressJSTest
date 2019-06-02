@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Post test</title>
+</head>
+
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div id="app">
+
+        <input type="text" id="name" v-model="name" value="name" required>
+
+        <button v-on:click="newUser()">Добавить</button>
+
+</div>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            users: [],
+            name:'',
+        },
+        methods: {
+            getUsers: function () {
+                axios
+                    .get('/users')
+                    .then(
+                        response => {
+                            //   console.log(response);
+                            this.users = response.data;
+                        }
+                    )
+                    .catch(
+                        // error=>console.log(error)
+                    )
+            },
+            addUser: function () {
+
+            },
+            delete(item) {
+                console.log("delete");
+            },
+            deleWindow(item){
+                console.log(item.id);
+                axios.delete('/',params)
+            },
+            newUser(){
+                let formData = new FormData();
+                formData.append('name',this.name);
+                const data=[{name:this.name}]
+                //qs.stringify(payload)
+                axios
+                    .post('/users',{name:this.name})
+                    .then(
+                        response => {
+                               console.log(response.data);
+                        }
+                    )
+                    .catch(
+                        // error=>console.log(error)
+                    )
+            }
+
+
+        },
+        beforeMount() {
+            console.log("test");
+            this.getUsers()
+        }
+    })
+</script>
+</body>
+</html>

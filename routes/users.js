@@ -3,6 +3,10 @@
 
 var express = require('express');
 const Sequelize = require("sequelize");
+var myParser = require("body-parser");
+var app = express();
+
+
 /*const sequelize = new Sequelize("postgres", "postgres", "postgres", {
   dialect: "postgres",
   host: "127.0.0.1",
@@ -57,9 +61,10 @@ router.get('/', function (req, res, next) {
     sequelize.sync().then(result => {
     });
     UserTest.findAll({raw: true}).then(data => {
-        res.render("index", {
+         res.json(data)
+        /*res.render("index", {
             users: data
-        });
+        });*/
     }).catch(err => console.log("error"));
 
 });
@@ -71,9 +76,7 @@ router.get('/:id', function (req, res) {
     var id = req.params.id;
 
     UserTest.findByPk(id).then(data => {
-        res.render("view", {
-            user: data
-        });
+        res.json( data);
     }).catch(err => console.log(err.toString()));
 });
 
@@ -139,33 +142,41 @@ router.delete('/:id', function (req, res) {
         res.render('add_user', {title: 'Expresqs'});
     });
 
-    router.post('/add', function (req, res, next) {
-        sequelize.sync().then(result => {
-            //console.log(result);
-        })
-            .catch(err => console.log(err));
 
-        sequelize.sync().then(result => {
+app.use(myParser.urlencoded({extended : true}));
+router.post('/', function (req, res, next) {
+        var data = req.body; // here is your data
+//    console.log(data);
+        var obj=JSON.parse(data);
+        console.log(obj.toString());
+ //   var body = ""; // request body
+
+  /*  req.on('data', function(data) {
+        body += data.toString(); // convert data to string and append it to request body
+    });
+
+    req.on('end', function() {
+        value = JSON.parse(body); // request is finished receiving data, parse it
+    });
+     //console.log(value.toString());
+    //var body =JSON.parse(req.body);
+           // body=JSON.parse(body);
+            //console.log(body);
+
+       // var parsedResponse = JSON.parse(req.get_Response());
+        //console.log(parsedResponse);
+       // var data2=JSON.parse(req.body);
+      //  console.log(data2);
+       // var res_data = JSON.parse(req.body);
+        //console.log(res_data);
+        //const user = JSON.parse(data);
+        //console.log(user);
+        /*sequelize.sync().then(result => {
             //console.log(result);
         }).catch();
+      */
 
-
-        //console.log(req.body); // this is what you want
-        if (!req.body.name) {
-            return res.status(400).send({
-                success: 'false',
-                message: 'title is required'
-            })
-        }
-        ;
-
-        UserTest.create({
-            name: req.body.name,
-        }).then(res => {
-            const user = {id: res.id, name: res.name}
-        }).catch(err => console.log(err));
-
-        res.redirect('/users')
+        res.toString("ok");
     });
 
     module.exports = router;

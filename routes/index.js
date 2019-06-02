@@ -1,10 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
+var bodyParser = require('body-parser');
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Expresqs' });
+  res.render('index', { title: 'Users list' });
 });
+
+router.get('/add', function(req, res, next) {
+    res.render('add', { title: 'Users list' });
+});
+
+
 
 router.get('/test', function(req, res, next) {
   //console.log("tst")

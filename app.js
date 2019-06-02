@@ -8,12 +8,20 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+var myParser = require("body-parser");
+var app = express();
+
+
+app.use(bodyParser.json())
+    .use(bodyParser.urlencoded({
+        extended: true
+    }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-//app.set("view engine", "ejs");
-
+app.set("view engine", "ejs");
 
 
 app.use(logger('dev'));
