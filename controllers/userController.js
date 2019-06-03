@@ -66,19 +66,14 @@ const UserTest = sequelize.define("userTest", {
     exports.update=function(req,res){
         sequelize.sync().then(result => {
         });
+        var data = req.body; // here is your data
         let idPar = req.params.id;
-        let name = req.query.name;
-        console.log(name);
-        UserTest.update(
-            {name: name},
-            {
-                where: {
-                    id: idPar
-                }
-            }
-        ).then()
-            .catch(console.log("err"));
-                 res.send("ok");
+        let Myname = req.query.name;
+       // console.log(Myname);
+           UserTest.findByPk(idPar).then(data => {
+            data.update({name:data["name"]})
+            });
+                  
     }
 
     exports.delete=function(req,res){
