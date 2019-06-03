@@ -11,7 +11,12 @@ const userController = require('../controllers/userController.js');
   
 // определяем маршруты и их обработчики внутри роутера userRouter
 //router.use("/create", userController.addUser);
-router.get("/", userController.index);
-//app.use("/users", userRouter);
 
+router.get("/", userController.index);
+router.get('/:id', userController.get);
+router.get('/edit/:id',userController.editPage);
+router.put('/:id', userController.update);
+router.delete('/:id',userController.delete )
+router.post('/',userController.post );
+//add page
 module.exports = router;
