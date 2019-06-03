@@ -159,7 +159,7 @@ router.post('/', function (req, res, next) {
         const user = {id: res.id, name: res.name}
     }).catch(err => console.log(err));
 
-    res.send("ok");
+    res.send(200);
 
     });
 

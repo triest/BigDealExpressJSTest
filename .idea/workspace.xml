@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7350767b-621b-4603-84aa-b99e789c84c3" name="Default" comment="Add ling and get single user">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/add.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/add.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,22 +53,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add.ejs" pinned="false" current-in-tab="false">
+      <file leaf-file-name="add.ejs" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/add.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1207">
-              <caret line="71" column="21" lean-forward="true" selection-start-line="60" selection-start-column="15" selection-end-line="71" selection-end-column="21" />
+            <state relative-caret-position="442">
+              <caret line="80" column="41" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="users.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="users.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/users.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
+            <state relative-caret-position="349">
+              <caret line="161" column="18" lean-forward="true" selection-start-line="161" selection-start-column="18" selection-end-line="161" selection-end-column="18" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <element signature="e#3384#3422#0" />
+                <element signature="e#3554#3583#0" />
               </folding>
             </state>
           </provider>
@@ -107,8 +109,8 @@
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/views/add.ejs" />
         <option value="$PROJECT_DIR$/routes/users.js" />
+        <option value="$PROJECT_DIR$/views/add.ejs" />
       </list>
     </option>
   </component>
@@ -253,7 +255,7 @@
       <workItem from="1559401328193" duration="15636000" />
       <workItem from="1559460597793" duration="42437000" />
       <workItem from="1559512803999" duration="208000" />
-      <workItem from="1559539030131" duration="2902000" />
+      <workItem from="1559539030131" duration="4452000" />
     </task>
     <task id="LOCAL-00001" summary="Connect to mysql and view users list">
       <created>1559417076522</created>
@@ -273,7 +275,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76482000" />
+    <option name="totallyTimeSpent" value="78032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -329,6 +331,8 @@
           <caret line="80" column="40" lean-forward="true" selection-start-line="80" selection-start-column="40" selection-end-line="80" selection-end-column="40" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3384#3422#0" />
+            <element signature="e#3554#3583#0" />
           </folding>
         </state>
       </provider>
@@ -390,6 +394,8 @@
           <caret line="16" column="4" lean-forward="true" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3384#3422#0" />
+            <element signature="e#3554#3583#0" />
           </folding>
         </state>
       </provider>
@@ -597,20 +603,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/add.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="71" column="21" lean-forward="true" selection-start-line="60" selection-start-column="15" selection-end-line="71" selection-end-column="21" />
+        <state relative-caret-position="349">
+          <caret line="161" column="18" lean-forward="true" selection-start-line="161" selection-start-column="18" selection-end-line="161" selection-end-column="18" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#3384#3422#0" />
+            <element signature="e#3554#3583#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/users.js">
+    <entry file="file://$PROJECT_DIR$/views/add.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="167" column="24" selection-start-line="167" selection-start-column="24" selection-end-line="167" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state relative-caret-position="442">
+          <caret line="80" column="41" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="41" />
         </state>
       </provider>
     </entry>

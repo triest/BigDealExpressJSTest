@@ -16,6 +16,7 @@
 <div id="app">
 
         <input type="text" id="name" v-model="name" value="name" required>
+        <p v-if="pleaseinputname=='true'">Введите имя</p>
 
         <button v-on:click="newUser()">Добавить</button>
 
@@ -30,6 +31,7 @@
         data: {
             users: [],
             name:'',
+            pleaseinputname:false,
         },
         methods: {
             getUsers: function () {
@@ -59,17 +61,25 @@
                 let formData = new FormData();
                 formData.append('name',this.name);
                 const data=[{name:this.name}]
-                //qs.stringify(payload)
-                axios
-                    .post('/users',{name:this.name})
-                    .then(
-                        response => {
-                               console.log(response.data);
-                        }
-                    )
-                    .catch(
-                        // error=>console.log(error)
-                    )
+                if (this.name!="") {
+                    pleaseinputname=false;
+                    //qs.stringify(payload)
+                    axios
+                        .post('/users', {name: this.name})
+                        .then(
+                            response => {
+                                // console.log(response.data);
+                                if (response.data == ) {
+                                    this.name = "";
+                                    alert("Запись создана!");
+                                }
+                            }
+                        )
+                        .catch()
+                }
+                else {
+                    pleaseinputname=false;
+                }
             }
 
 
