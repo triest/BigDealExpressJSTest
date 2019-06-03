@@ -82,7 +82,9 @@
                 this.currnentName=user.name;
                 $("#edit-modal").modal('show');
             },
-            saveEdit(){       
+            saveEdit(){
+                console.log(this.currentId);
+                console.log(this.currnentName);
                 if (this.currnentName!="" && this.currentId!=""){
                     axios.put('/users/'+this.currentId, {name: this.currnentName})
                 }

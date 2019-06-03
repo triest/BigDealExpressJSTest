@@ -1,6 +1,6 @@
 var User = require('../models/user');
 const Sequelize = require("sequelize");
-
+/*
 const sequelize = new Sequelize({
     username: 'yourname',
     password: 'yourname',
@@ -8,7 +8,16 @@ const sequelize = new Sequelize({
     dialect: "postgres",
     host: "localhost",
     port: "5432"
-}); 
+});
+*/
+const sequelize = new Sequelize({
+    database: 'expressjs',
+    username: 'root',
+    password: '',
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql'
+});
 
 const UserTest = sequelize.define("userTest", {
     id: {
@@ -42,7 +51,7 @@ const UserTest = sequelize.define("userTest", {
         });*/
     }).catch(err => console.log("error"));
 
-    }
+    };
 
     exports.get=function(req, res) {   
         sequelize.sync().then(result => {
@@ -51,7 +60,7 @@ const UserTest = sequelize.define("userTest", {
         UserTest.findByPk(id).then(data => {
             res.json( data);
           }).catch(err => console.log(err.toString()));
-    }
+    };
 
     exports.editPage=function(req, res) { 
         sequelize.sync().then(result => {
@@ -61,20 +70,30 @@ const UserTest = sequelize.define("userTest", {
                 user: data
             });
     }).catch(err => console.log(err.toString()));  
-    }
+    };
 
     exports.update=function(req,res){
         sequelize.sync().then(result => {
         });
-        var data = req.body; // here is your data
-        let idPar = req.params.id;
-        let Myname = req.query.name;
-       // console.log(Myname);
+         var idPar = req.params.id;
+         var Myname = req.query.name;
+        console.log(idPar);
+        console.log(Myname);
            UserTest.findByPk(idPar).then(data => {
-            data.update({name:data["name"]})
+            data.update({name:Myname})
             });
-                  
-    }
+
+      /*  UserTest.update(
+            {name:name},
+            {where:{
+                    id:idPar}
+            }
+        ).
+        then()
+            .catch(console.log("err"));*/
+        res.send("ok");
+
+    };
 
     exports.delete=function(req,res){
         let idPar = req.params.id;
@@ -83,7 +102,7 @@ const UserTest = sequelize.define("userTest", {
               data.destroy()
               });
         res.send("ok");
-    }
+    };
 
     exports.post=function(req, res) {  
         var data = req.body; // here is your data
@@ -98,4 +117,4 @@ const UserTest = sequelize.define("userTest", {
               const user = {id: res.id, name: res.name}
           }).catch(err => console.log(err));
          res.send(200);     
-     }
+     };

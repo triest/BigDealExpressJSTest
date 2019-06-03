@@ -16,7 +16,7 @@ router.get("/", userController.index);
 router.get('/:id', userController.get);
 router.get('/edit/:id',userController.editPage);
 router.put('/:id', userController.update);
-router.delete('/:id',userController.delete )
+router.delete('/:id',userController.delete );
 router.post('/',userController.post );
 //add page
 module.exports = router;
