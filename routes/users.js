@@ -145,38 +145,22 @@ router.delete('/:id', function (req, res) {
 
 app.use(myParser.urlencoded({extended : true}));
 router.post('/', function (req, res, next) {
-        var data = req.body; // here is your data
-//    console.log(data);
-        var obj=JSON.parse(data);
-        console.log(obj.toString());
- //   var body = ""; // request body
+     var data = req.body; // here is your data
+  if (data["name"]==""){
+        res.send("empty");
+    }
+    sequelize.sync().then(result => {
+        //console.log(result);
+    }).catch();
 
-  /*  req.on('data', function(data) {
-        body += data.toString(); // convert data to string and append it to request body
-    });
+    UserTest.create({
+        name: data["name"],
+    }).then(res => {
+        const user = {id: res.id, name: res.name}
+    }).catch(err => console.log(err));
 
-    req.on('end', function() {
-        value = JSON.parse(body); // request is finished receiving data, parse it
-    });
-     //console.log(value.toString());
-    //var body =JSON.parse(req.body);
-           // body=JSON.parse(body);
-            //console.log(body);
+    res.send("ok");
 
-       // var parsedResponse = JSON.parse(req.get_Response());
-        //console.log(parsedResponse);
-       // var data2=JSON.parse(req.body);
-      //  console.log(data2);
-       // var res_data = JSON.parse(req.body);
-        //console.log(res_data);
-        //const user = JSON.parse(data);
-        //console.log(user);
-        /*sequelize.sync().then(result => {
-            //console.log(result);
-        }).catch();
-      */
-
-        res.toString("ok");
     });
 
     module.exports = router;
