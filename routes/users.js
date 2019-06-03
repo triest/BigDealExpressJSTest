@@ -6,21 +6,8 @@ const Sequelize = require("sequelize");
 var myParser = require("body-parser");
 var app = express();
 
-
-/*const sequelize = new Sequelize("postgres", "postgres", "postgres", {
-  dialect: "postgres",
-  host: "127.0.0.1",
-  port: "5432",
-});
-*/
-/*const sequelize = new Sequelize({
-    database: 'db',
-    username: 'postgres',
-    password: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    dialect: 'postgres'
-});*/
+//mysql
+/*
 const sequelize = new Sequelize({
     database: 'expressjs',
     username: 'root',
@@ -29,6 +16,17 @@ const sequelize = new Sequelize({
     port: 3306,
     dialect: 'mysql'
 });
+*/
+//expres js
+
+const sequelize = new Sequelize({
+    username: 'yourname',
+    password: 'yourname',
+    database: 'test',
+    dialect: "postgres",
+    host: "localhost",
+    port: "5432"
+  });       
 
 //var users = require('db/users');
 
