@@ -14,7 +14,20 @@
 
 
 <div id="app">
-    <a href="/add">Добавить1</a>
+        <div id="edit-modal" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                         </div>
+                        <div class="modal-body">
+                             <input type="text" v-model="currnentName">
+                             <button class="btn" @click="saveEdit()">Редактировать</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    
+    <a href="/add">Добавить</a>
     <p>Пользователи</p>
     <table class="table table-condensed">
         <thead>
@@ -28,10 +41,10 @@
             <td>{{user.id}}</td>
             <td>{{user.name}}</td>
             <td> <button class="btn" @click="deleWindow(user)"><i class="fa fa-trash"></i></button>
+            <td><button class="btn" @click="editModel(user)">Редактировать</button></td>
         </tr>
         </tbody>
     </table>
-
 </div>
 
 
@@ -42,9 +55,12 @@
         el: '#app',
         data: {
             users: [],
+            currentId:'',
+            currnentName:''
         },
         methods: {
             getUsers: function () {
+                this.users=[];
                 axios
                     .get('/users')
                     .then(
@@ -54,16 +70,23 @@
                         }
                     )
                     .catch(
-                        // error=>console.log(error)
+                         error=>console.log(error)
                     )
             },
-            delete(item) {
-                console.log("delete");
-            },
             deleWindow(item){
-                console.log(item.id);
-                axios.delete('/',params)
+                axios.delete('/users/'+item.id)
+                this.getUsers();
             },
+            editModel(user){
+                this.currentId=user.id;
+                this.currnentName=user.name;
+                $("#edit-modal").modal('show');
+            },
+            saveEdit(){       
+                if (this.currnentName!="" && this.currentId!=""){
+                    axios.put('/users/'+this.currentId, {name: this.currnentName})
+                }
+            }
 
 
         },
