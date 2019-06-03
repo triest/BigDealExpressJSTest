@@ -86,6 +86,7 @@
                 if (this.currnentName!="" && this.currentId!=""){
                     axios.put('/users/'+this.currentId, {name: this.currnentName})
                 }
+                this.getUsers();
             }
 
 
