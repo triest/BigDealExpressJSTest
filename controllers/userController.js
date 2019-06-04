@@ -1,4 +1,4 @@
-var User = require('../models/user');
+//var User = require('../models/user');
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
@@ -21,7 +21,7 @@ const sequelize = new Sequelize({
 });
 */
 
-const UserTest = sequelize.define("userTest", {
+const User = sequelize.define("user", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -43,20 +43,20 @@ const UserTest = sequelize.define("userTest", {
 });
 
    exports.index=function(req, res) {   
-    UserTest.findAll({raw: true}).then(data => {
+    User.findAll({raw: true}).then(data => {
          res.json(data)
     }).catch(err => console.log("error"));
     };
 
     exports.get=function(req, res) {   
         var id = req.params.id;
-        UserTest.findByPk(id).then(data => {
+        User.findByPk(id).then(data => {
             res.json( data);
           }).catch(err => console.log(err.toString()));
     };
 
     exports.editPage=function(req, res) { 
-         UserTest.findByPk(req.params.id).then(data => {
+         User.findByPk(req.params.id).then(data => {
             res.render("edit", {
                 user: data
             });
@@ -66,7 +66,7 @@ const UserTest = sequelize.define("userTest", {
     exports.update=function(req,res){
          var idPar = req.params.id;
          var Myname = req.query.name;
-           UserTest.findByPk(idPar).then(data => {
+           User.findByPk(idPar).then(data => {
             data.update({name:Myname})
             });
         res.send("ok");
@@ -74,7 +74,7 @@ const UserTest = sequelize.define("userTest", {
 
     exports.delete=function(req,res){
         let idPar = req.params.id;
-          UserTest.findByPk(idPar).then(data => {
+          User.findByPk(idPar).then(data => {
               data.destroy()
               });
         res.send("ok");
@@ -85,7 +85,7 @@ const UserTest = sequelize.define("userTest", {
         if (data["name"]==""){
               res.send("empty");
           }
-        UserTest.create({
+        User.create({
               name: data["name"],
           }).then(res => {
               const user = {id: res.id, name: res.name}
