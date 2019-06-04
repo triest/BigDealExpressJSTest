@@ -42,22 +42,13 @@ const UserTest = sequelize.define("userTest", {
     },
 });
 
-
    exports.index=function(req, res) {   
-    sequelize.sync().then(result => {
-    });
     UserTest.findAll({raw: true}).then(data => {
          res.json(data)
-        /*res.render("index", {
-            users: data
-        });*/
     }).catch(err => console.log("error"));
-
     };
 
     exports.get=function(req, res) {   
-        sequelize.sync().then(result => {
-        });
         var id = req.params.id;
         UserTest.findByPk(id).then(data => {
             res.json( data);
@@ -65,8 +56,6 @@ const UserTest = sequelize.define("userTest", {
     };
 
     exports.editPage=function(req, res) { 
-        sequelize.sync().then(result => {
-        });
          UserTest.findByPk(req.params.id).then(data => {
             res.render("edit", {
                 user: data
@@ -75,31 +64,16 @@ const UserTest = sequelize.define("userTest", {
     };
 
     exports.update=function(req,res){
-        sequelize.sync().then(result => {
-        });
          var idPar = req.params.id;
          var Myname = req.query.name;
-        console.log(idPar);
-        console.log(Myname);
            UserTest.findByPk(idPar).then(data => {
             data.update({name:Myname})
             });
-
-      /*  UserTest.update(
-            {name:name},
-            {where:{
-                    id:idPar}
-            }
-        ).
-        then()
-            .catch(console.log("err"));*/
         res.send("ok");
-
     };
 
     exports.delete=function(req,res){
         let idPar = req.params.id;
-        console.log(idPar);
           UserTest.findByPk(idPar).then(data => {
               data.destroy()
               });
@@ -111,8 +85,6 @@ const UserTest = sequelize.define("userTest", {
         if (data["name"]==""){
               res.send("empty");
           }
-          sequelize.sync().then(result => {
-          }).catch();
         UserTest.create({
               name: data["name"],
           }).then(res => {
