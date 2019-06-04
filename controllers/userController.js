@@ -1,6 +1,6 @@
-const User = require('../models/user.js');
+var User = require('../models/user');
 const Sequelize = require("sequelize");
-/*
+
 const sequelize = new Sequelize({
     username: 'yourname',
     password: 'yourname',
@@ -9,7 +9,8 @@ const sequelize = new Sequelize({
     host: "localhost",
     port: "5432"
 });
-*//*
+
+/*
 const sequelize = new Sequelize({
     database: 'expressjs',
     username: 'root',
@@ -18,8 +19,9 @@ const sequelize = new Sequelize({
     port: 3306,
     dialect: 'mysql'
 });
+*/
 
-const User = sequelize.define("User", {
+const UserTest = sequelize.define("userTest", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -39,13 +41,12 @@ const User = sequelize.define("User", {
         type: Sequelize.DATE,
     },
 });
-*/
 
 
    exports.index=function(req, res) {   
     sequelize.sync().then(result => {
     });
-    User.findAll({raw: true}).then(data => {
+    UserTest.findAll({raw: true}).then(data => {
          res.json(data)
         /*res.render("index", {
             users: data
@@ -58,7 +59,7 @@ const User = sequelize.define("User", {
         sequelize.sync().then(result => {
         });
         var id = req.params.id;
-        User.findByPk(id).then(data => {
+        UserTest.findByPk(id).then(data => {
             res.json( data);
           }).catch(err => console.log(err.toString()));
     };
@@ -66,7 +67,7 @@ const User = sequelize.define("User", {
     exports.editPage=function(req, res) { 
         sequelize.sync().then(result => {
         });
-         User.findByPk(req.params.id).then(data => {
+         UserTest.findByPk(req.params.id).then(data => {
             res.render("edit", {
                 user: data
             });
@@ -80,9 +81,18 @@ const User = sequelize.define("User", {
          var Myname = req.query.name;
         console.log(idPar);
         console.log(Myname);
-           User.findByPk(idPar).then(data => {
+           UserTest.findByPk(idPar).then(data => {
             data.update({name:Myname})
             });
+
+      /*  UserTest.update(
+            {name:name},
+            {where:{
+                    id:idPar}
+            }
+        ).
+        then()
+            .catch(console.log("err"));*/
         res.send("ok");
 
     };
@@ -90,7 +100,7 @@ const User = sequelize.define("User", {
     exports.delete=function(req,res){
         let idPar = req.params.id;
         console.log(idPar);
-        User.findByPk(idPar).then(data => {
+          UserTest.findByPk(idPar).then(data => {
               data.destroy()
               });
         res.send("ok");
@@ -103,10 +113,10 @@ const User = sequelize.define("User", {
           }
           sequelize.sync().then(result => {
           }).catch();
-        User.create({
+        UserTest.create({
               name: data["name"],
           }).then(res => {
               const user = {id: res.id, name: res.name}
           }).catch(err => console.log(err));
          res.send(200);     
-     };
+};
