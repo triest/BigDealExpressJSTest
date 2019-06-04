@@ -1,4 +1,4 @@
-var User = require('../models/user');
+const User = require('../models/user.js');
 const Sequelize = require("sequelize");
 /*
 const sequelize = new Sequelize({
@@ -9,7 +9,7 @@ const sequelize = new Sequelize({
     host: "localhost",
     port: "5432"
 });
-*/
+*//*
 const sequelize = new Sequelize({
     database: 'expressjs',
     username: 'root',
@@ -19,7 +19,7 @@ const sequelize = new Sequelize({
     dialect: 'mysql'
 });
 
-const UserTest = sequelize.define("userTest", {
+const User = sequelize.define("User", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -39,12 +39,13 @@ const UserTest = sequelize.define("userTest", {
         type: Sequelize.DATE,
     },
 });
+*/
 
 
    exports.index=function(req, res) {   
     sequelize.sync().then(result => {
     });
-    UserTest.findAll({raw: true}).then(data => {
+    User.findAll({raw: true}).then(data => {
          res.json(data)
         /*res.render("index", {
             users: data
@@ -57,7 +58,7 @@ const UserTest = sequelize.define("userTest", {
         sequelize.sync().then(result => {
         });
         var id = req.params.id;
-        UserTest.findByPk(id).then(data => {
+        User.findByPk(id).then(data => {
             res.json( data);
           }).catch(err => console.log(err.toString()));
     };
@@ -65,7 +66,7 @@ const UserTest = sequelize.define("userTest", {
     exports.editPage=function(req, res) { 
         sequelize.sync().then(result => {
         });
-         UserTest.findByPk(req.params.id).then(data => {
+         User.findByPk(req.params.id).then(data => {
             res.render("edit", {
                 user: data
             });
@@ -79,18 +80,9 @@ const UserTest = sequelize.define("userTest", {
          var Myname = req.query.name;
         console.log(idPar);
         console.log(Myname);
-           UserTest.findByPk(idPar).then(data => {
+           User.findByPk(idPar).then(data => {
             data.update({name:Myname})
             });
-
-      /*  UserTest.update(
-            {name:name},
-            {where:{
-                    id:idPar}
-            }
-        ).
-        then()
-            .catch(console.log("err"));*/
         res.send("ok");
 
     };
@@ -98,7 +90,7 @@ const UserTest = sequelize.define("userTest", {
     exports.delete=function(req,res){
         let idPar = req.params.id;
         console.log(idPar);
-          UserTest.findByPk(idPar).then(data => {
+        User.findByPk(idPar).then(data => {
               data.destroy()
               });
         res.send("ok");
@@ -111,7 +103,7 @@ const UserTest = sequelize.define("userTest", {
           }
           sequelize.sync().then(result => {
           }).catch();
-        UserTest.create({
+        User.create({
               name: data["name"],
           }).then(res => {
               const user = {id: res.id, name: res.name}

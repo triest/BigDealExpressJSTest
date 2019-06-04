@@ -1,3 +1,5 @@
+/*
+
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
@@ -9,7 +11,7 @@ const sequelize = new Sequelize({
     port: "5432"
 });
 
-const User = sequelize.define("user", {
+exports.User = sequelize.define("user", {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -29,3 +31,19 @@ const User = sequelize.define("user", {
         type: Sequelize.DATE,
     },
 });
+*/
+
+const users = [];
+
+module.exports= class User{
+
+    constructor(name, age){
+        this.name = name;
+    }
+    save(){
+        users.push(this);
+    }
+    static getAll(){
+        return users;
+    }
+};
