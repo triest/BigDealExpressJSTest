@@ -50,12 +50,20 @@ const User = sequelize.define("user", {
 
     exports.get=function(req, res) {   
         var id = req.params.id;
+        if (typeof id != "number" ) {
+            res.send(400)
+          }
+
         User.findByPk(id).then(data => {
             res.json( data);
           }).catch(err => console.log(err.toString()));
     };
 
     exports.editPage=function(req, res) { 
+        if (typeof req.params.id != "number" ) {
+            res.send(400)
+          }
+
          User.findByPk(req.params.id).then(data => {
             res.render("edit", {
                 user: data
@@ -66,6 +74,10 @@ const User = sequelize.define("user", {
     exports.update=function(req,res){
          var idPar = req.params.id;
          var Myname = req.query.name;
+         if (typeof idPar != "number" && typeof Myname!="string") {
+            res.send(400)
+          }
+
            User.findByPk(idPar).then(data => {
             data.update({name:Myname})
             });
@@ -74,15 +86,20 @@ const User = sequelize.define("user", {
 
     exports.delete=function(req,res){
         let idPar = req.params.id;
+
+        if (typeof idPar != "number" ) {
+                res.send(400)
+        }
+
           User.findByPk(idPar).then(data => {
               data.destroy()
               });
-        res.send("ok");
+        res.send(200);
     };
 
     exports.post=function(req, res) {  
         var data = req.body; // here is your data
-        if (data["name"]==""){
+        if (data["name"]=="" && typeof["name"]!="string"){
               res.send("empty");
           }
         User.create({
