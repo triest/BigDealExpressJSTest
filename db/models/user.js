@@ -24,25 +24,25 @@ const sequelize = new Sequelize({
     module.exports=(sequelize, DataTypes) => {
         let actions = sequelize.define('actions', {
         id: {
-            type: Sequelize.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             allowNull: false
         },
         name: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         createdAt: {
             field: 'created_at',
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
         },
         updatedAt: {
             field: 'updated_at',
-            type: Sequelize.DATE,
+            type: DataTypes.DATE,
         },
     });
-    return User;
+   // return User;
   };
 
 

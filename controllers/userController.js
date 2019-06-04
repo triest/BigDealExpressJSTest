@@ -37,11 +37,18 @@ const User = sequelize.define("user", {
 });
 */
 
-   exports.index=function(req, res) {   
+   exports.index=function(req, res) {
+  /*
     const db = req.app.get('db');
-    User.findAll({raw: true}).then(data => {
+      User.findAll({raw: true}).then(data => {
          res.json(data)
     }).catch(err => console.log("error"));
+   */
+  const db = req.app.get('db');
+   db.models.actions.scope().findAll().then(function (items) {
+       return items;
+   });
+
     };
 
     exports.get=function(req, res) {   
