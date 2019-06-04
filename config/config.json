@@ -1,0 +1,116 @@
+{
+    "port": 8000,
+    "url": "http://localhost:8000",
+    "user": {
+      "name": "admin",
+      "email": "admin@example.com",
+      "password": "123123",
+      "salt": "K42=0v<d/2?dh3s",
+      "ttl": 2592000
+    },
+    "database": {
+      "database": "test",
+      "user": "yourname",
+      "password": "yourname",
+      "dialect": "postgres",
+      "options": {
+        "dialect": "postgres"
+      }
+    },
+    "clickhouse": {
+      "host": "localhost",
+      "port": 8123,
+      "auth": "default:",
+      "queryOptions": {
+        "database": "giraffe"
+      },
+      "syncParser": true
+    },
+    "redis": {
+      "api":{
+          "host": "127.0.0.1",
+          "port": 6379
+      },
+      "stat": {
+        "host": "127.0.0.1",
+        "port": 6379
+      },
+      "events": {
+        "host": "127.0.0.1",
+        "port": 6379
+      }
+    },
+    "elasticsearch": {
+      "main": {
+        "host": "example-elastic.main.com"
+      },
+      "errors": {
+        "host": "example-elastic-errors.main.com"
+      }
+    },
+    "mobilis":{
+      "token": "62be78860adecf76c3ac6853f5b7650b",
+      "user_id": 332,
+      "apk_path": "/home/www/apk/",
+      "prefix": "prefix"
+    },
+    "reflow":{
+      "token": "AAAA",
+      "operationsPath": "/operations",
+      "walletsPath": "/wallets",
+      "walletPath": "/defaultWallet",
+      "usersPath": "/users",
+      "employeesPath": "/employees",
+      "importsPath": "/imports",
+      "paymentsPath": "/invoices"
+    },
+    "promoScripts":{
+      "folder": "v2",
+      "token": "AAA"
+    },
+    "pushServer": {
+      "token": "BBB"
+    },
+    "tdsmobile": {
+      "api_url": "http://example.com/api",
+      "token": "123456",
+      "partners_api_url": "http://example2.com/api"
+    },
+    "reports": {
+      "path": "/home/www/tmp/"
+    },
+    "static": {
+      "path": "/home/www/tmp/",
+      "services": {
+        "dir": "services"
+      },
+      "users": {
+        "dir": "users"
+      }
+    },
+    "mets": {
+      "textAdUrl": "http://example.com/upload"
+    },
+    "parser":{
+      "token": "4567b7daa4784878f233440c5fa0416b52edf542"
+    },
+    "gsf": {
+      "url": "http://127.0.0.1:8000"
+    },
+    "cmg": {
+      "token": "COMMERCE_GATE_TOKEN",
+      "url": "http://127.0.0.1:8001"
+    },
+    "trelloUrl": "",
+    "reflowUrl": "https://example.com/api/platforms/bigdeal",
+    "oauth_url": "http://dev.admin.trafficgiraffic.com/#/oauth",
+    "cdnUrl": "http://cdn.dev.trafficgiraffic.com",
+    "rotatorUrl": "http://dev.trafficgiraffic.com/r",
+    "defaultCurrency": "USD",
+    "postbackUrlPattern": "/p/?pk={PUBLIC_KEY}&c={CLICK_ID}&a={ACTION_ID}&u={UNIQUE_ID}&m={ADVERTISING_COST}&r={CURRENCY_CODE}",
+    "longPolling": {
+      "reqTimeout": 25000,
+      "checkInterval": 250
+    }
+  }
+  

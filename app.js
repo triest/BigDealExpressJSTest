@@ -23,6 +23,10 @@ app.use(bodyParser.json())
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
+const db = require('./db');
+db.app = app;
+app.set('db', db);
+
 
 app.use(logger('dev'));
 app.use(express.json());

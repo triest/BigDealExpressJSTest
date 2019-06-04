@@ -18,10 +18,11 @@ const sequelize = new Sequelize({
     dialect: 'mysql'
 });
 */
+//module.exports =   function (sequelize, DataTypes) {
 
-
- exports.User = (sequelize, DataTypes) => {
-    var User = sequelize.define('User', {
+// exports.User = (sequelize, DataTypes) => {
+    module.exports=(sequelize, DataTypes) => {
+        let actions = sequelize.define('actions', {
         id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,

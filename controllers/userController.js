@@ -1,6 +1,7 @@
 //var User = require('../models/user');
-const Sequelize = require("sequelize");
+//var Sequelize = require("sequelize");
 
+/*
 const sequelize = new Sequelize({
     username: 'yourname',
     password: 'yourname',
@@ -10,17 +11,10 @@ const sequelize = new Sequelize({
     port: "5432"
 });
 
-/*
-const sequelize = new Sequelize({
-    database: 'expressjs',
-    username: 'root',
-    password: '',
-    host: 'localhost',
-    port: 3306,
-    dialect: 'mysql'
-});
+User=require('../db/models/user')
 */
 
+/*
 const User = sequelize.define("user", {
     id: {
         type: Sequelize.INTEGER,
@@ -41,8 +35,10 @@ const User = sequelize.define("user", {
         type: Sequelize.DATE,
     },
 });
+*/
 
    exports.index=function(req, res) {   
+    const db = req.app.get('db');
     User.findAll({raw: true}).then(data => {
          res.json(data)
     }).catch(err => console.log("error"));
