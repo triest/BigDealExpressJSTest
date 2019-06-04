@@ -45,11 +45,11 @@ const User = sequelize.define("user", {
     }).catch(err => console.log("error"));
    */
   const db = req.app.get('db');
-   db.models.actions.scope().findAll().then(function (items) {
-       return items;
-   });
 
-    };
+   db.models.user.scope().findAll({raw: true}).then(data => {
+    res.json(data)
+}).catch(err => console.log("error"));
+
 
     exports.get=function(req, res) {   
         var id = req.params.id;
