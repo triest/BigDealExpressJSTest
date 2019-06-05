@@ -38,14 +38,8 @@ const User = sequelize.define("user", {
 */
 
    exports.index=function(req, res) {
-  /*
     const db = req.app.get('db');
-      User.findAll({raw: true}).then(data => {
-         res.json(data)
-    }).catch(err => console.log("error"));
-   */
-  const db = req.app.get('db');
- // console.log("data")  
+    console.log(db);
    db.models.user.findAll().then(function(data) {
             console.log(data)
        if(data!==""){
@@ -108,8 +102,7 @@ const User = sequelize.define("user", {
     };
 
     exports.create = function (req, res, next) {
-        const db = req.app.get('db');
-        console.log(db);
+      
         let data = req.body; // here is your data
 
         let name=data["name"];
