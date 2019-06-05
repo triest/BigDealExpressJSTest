@@ -37,78 +37,79 @@ const User = sequelize.define("user", {
 });
 */
 
-   exports.index=function(req, res) {
-    const db = req.app.get('db');
-      //console.log(db);
-   db.models.user.findAll().then(function(data) {
-            //console.log(data)
-       if(data!==""){
-            res.json(data)}
-        else{
-         res.send("empty")
-        }
-}).catch(err => console.log(err.toString()));
-       
-   };
-
-
-    exports.get=function(req, res) {   
-        var id = req.params.id;
-        if (typeof id != "number" ) {
-            res.send(400)
-          }
-
-        User.findByPk(id).then(data => {
-            res.json( data);
-          }).catch(err => console.log(err.toString()));
-    };
-
-    exports.editPage=function(req, res) { 
-        if (typeof req.params.id != "number" ) {
-            res.send(400)
-          }
-
-         User.findByPk(req.params.id).then(data => {
-            res.render("edit", {
-                user: data
-            });
-    }).catch(err => console.log(err.toString()));  
-    };
-
-    exports.update=function(req,res){
-         var idPar = req.params.id;
-         var Myname = req.query.name;
-         if (typeof idPar != "number" && typeof Myname!="string") {
-            res.send(400)
-          }
-
-           User.findByPk(idPar).then(data => {
-            data.update({name:Myname})
-            });
-        res.send("ok");
-    };
-
-    exports.delete=function(req,res){
-        let idPar = req.params.id;
-
-        if (typeof idPar != "number" ) {
-                res.send(400)
-        }
-
-          User.findByPk(idPar).then(data => {
-              data.destroy()
-              });
-        res.send(200);
-    };
-
-    exports.create = function (req, res, next) {
-      
-        let data = req.body; // here is your data
-
-        let name=data["name"];
-        db.models.user.create({
-              name: name,
-              }).then(res => {
-                 }).catch(err => console.log(err));
+exports.index = function (req, res) {
+  const db = req.app.get('db');
+  //console.log(db);
+  db.models.user.findAll().then(function (data) {
+    //console.log(data)
+    if (data !== "") {
+      res.json(data)
     }
+    else {
+      res.send("empty")
+    }
+  }).catch(err => console.log(err.toString()));
+
+};
+
+
+exports.get = function (req, res) {
+  var id = req.params.id;
+  if (typeof id != "number") {
+    res.send(400)
+  }
+
+  User.findByPk(id).then(data => {
+    res.json(data);
+  }).catch(err => console.log(err.toString()));
+};
+
+exports.editPage = function (req, res) {
+  if (typeof req.params.id != "number") {
+    res.send(400)
+  }
+
+  User.findByPk(req.params.id).then(data => {
+    res.render("edit", {
+      user: data
+    });
+  }).catch(err => console.log(err.toString()));
+};
+
+exports.update = function (req, res) {
+  var idPar = req.params.id;
+  var Myname = req.query.name;
+  if (typeof idPar != "number" && typeof Myname != "string") {
+    res.send(400)
+  }
+
+  User.findByPk(idPar).then(data => {
+    data.update({ name: Myname })
+  });
+  res.send("ok");
+};
+
+exports.delete = function (req, res) {
+  let idPar = req.params.id;
+
+  if (typeof idPar != "number") {
+    res.send(400)
+  }
+
+  User.findByPk(idPar).then(data => {
+    data.destroy()
+  });
+  res.send(200);
+};
+
+exports.create = function (req, res, next) {
+
+  let data = req.body; // here is your data
+
+  let name = data["name"];
+  db.models.user.create({
+    name: name,
+  }).then(res => {
+  }).catch(err => console.log(err));
+}
 
