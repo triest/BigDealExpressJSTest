@@ -45,10 +45,18 @@ const User = sequelize.define("user", {
     }).catch(err => console.log("error"));
    */
   const db = req.app.get('db');
-
-   db.models.user.scope().findAll({raw: true}).then(data => {
-    res.json(data)
+ // console.log("data")  
+   db.models.user.scope().findAll().then(function(items) {
+    console.log("data")  
+       console.log(data)
+       if(data!==""){
+            res.json(data)}
+        else{
+         res.send("empty")
+        }
 }).catch(err => console.log("error"));
+        res.send(err)
+   };
 
 
     exports.get=function(req, res) {   
@@ -100,6 +108,20 @@ const User = sequelize.define("user", {
         res.send(200);
     };
 
+    exports.create = function (req, res, next) {
+        const db = req.app.get('db');
+        console.log(db);
+        let data = req.body; // here is your data
+
+        let name=data["name"];
+        db.models.user.create({
+              name: name,
+              }).then(res => {
+            //const user = {id: res.id, name: res.name}
+            //res.send(200);
+                 }).catch(err => console.log(err));
+    }
+    /*
     exports.post=function(req, res) {  
         var data = req.body; // here is your data
         if (data["name"]=="" && typeof["name"]!="string"){
@@ -111,4 +133,6 @@ const User = sequelize.define("user", {
               const user = {id: res.id, name: res.name}
           }).catch(err => console.log(err));
          res.send(200);     
-};
+}
+*/
+

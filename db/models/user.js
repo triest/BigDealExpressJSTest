@@ -6,7 +6,8 @@ const sequelize = new Sequelize({
     database: 'test',
     dialect: "postgres",
     host: "localhost",
-    port: "5432"
+    port: "5432",
+    logging: console.log
 });
 /*
 const sequelize = new Sequelize({
@@ -22,7 +23,7 @@ const sequelize = new Sequelize({
 
 // exports.User = (sequelize, DataTypes) => {
     module.exports=(sequelize, DataTypes) => {
-        let actions = sequelize.define('actions', {
+        let user = sequelize.define('user',   {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -40,10 +41,29 @@ const sequelize = new Sequelize({
         updatedAt: {
             field: 'updated_at',
             type: DataTypes.DATE,
+    }
+}, {
+        timestamps: false,
+        underscored: true,
+        tableName: 'users',
+        hooks: {
+          beforeCreate: (item) => {
+           
+          }
         },
-    });
+        scopes:{
+           stat: (filter) => {
+    
+          },
+          typeStat: (ser_id, c_id) => {
+       
+          }
+        }
+      });
+    }
+
+   
    // return User;
-  };
 
 
-//module.exports = User;
+
