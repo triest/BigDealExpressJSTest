@@ -43,7 +43,7 @@ const sequelize = new Sequelize({
             type: DataTypes.DATE,
     }
 }, {
-        timestamps: false,
+        timestamps: true,
         underscored: true,
         tableName: 'users',
         hooks: {

@@ -46,9 +46,8 @@ const User = sequelize.define("user", {
    */
   const db = req.app.get('db');
  // console.log("data")  
-   db.models.user.scope().findAll().then(function(items) {
-    console.log("data")  
-       console.log(data)
+   db.models.user.findAll().then(function(data) {
+            console.log(data)
        if(data!==""){
             res.json(data)}
         else{
@@ -117,22 +116,6 @@ const User = sequelize.define("user", {
         db.models.user.create({
               name: name,
               }).then(res => {
-            //const user = {id: res.id, name: res.name}
-            //res.send(200);
                  }).catch(err => console.log(err));
     }
-    /*
-    exports.post=function(req, res) {  
-        var data = req.body; // here is your data
-        if (data["name"]=="" && typeof["name"]!="string"){
-              res.send("empty");
-          }
-        User.create({
-              name: data["name"],
-          }).then(res => {
-              const user = {id: res.id, name: res.name}
-          }).catch(err => console.log(err));
-         res.send(200);     
-}
-*/
 
