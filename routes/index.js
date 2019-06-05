@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Users list' });
+ res.render('index', { title: 'Users list' });
+ // res.json({});
 });
 
 router.get('/add', function(req, res, next) {

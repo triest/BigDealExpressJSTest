@@ -23,6 +23,9 @@ const sequelize = new Sequelize({
 
 // exports.User = (sequelize, DataTypes) => {
     module.exports=(sequelize, DataTypes) => {
+
+
+
         let user = sequelize.define('user',   {
         id: {
             type: DataTypes.INTEGER,
@@ -48,21 +51,21 @@ const sequelize = new Sequelize({
         tableName: 'users',
         hooks: {
           beforeCreate: (item) => {
-           
+
           }
         },
         scopes:{
            stat: (filter) => {
-    
+
           },
           typeStat: (ser_id, c_id) => {
-       
+
           }
         }
       });
     }
 
-   
+
    // return User;
 
 

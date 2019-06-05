@@ -1,5 +1,21 @@
 
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize({
+    username: 'yourname',
+    password: 'yourname',
+    database: 'test',
+    dialect: "postgres",
+    host: "localhost",
+    port: "5432",
+    logging: console.log
+});
+
 exports.index = function (req, res) {
+  sequelize.sync().then(result=>{
+    //console.log(result);
+  }).catch(err=> console.log(err));
+
   const db = req.app.get('db');
   //console.log(db);
   db.models.user.findAll().then(function (data) {
@@ -11,6 +27,7 @@ exports.index = function (req, res) {
 
 exports.get = function (req, res) {
   const db = req.app.get('db');
+
   var id = req.params.id;
   if (typeof id != "number") {
     res.send(400)
@@ -51,7 +68,7 @@ exports.delete = function (req, res) {
   const db = req.app.get('db');
   /* if (typeof idPar != "number") {
     res.send(400);
-  }
+    }
   */
 
  db.models.user.findByPk(idPar).then(data => {
@@ -61,7 +78,7 @@ exports.delete = function (req, res) {
 };
 
 exports.create = function (req, res, next) {
-
+  const db = req.app.get('db');
   let data = req.body; // here is your data
 
   let name = data["name"];
