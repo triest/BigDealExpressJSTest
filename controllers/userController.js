@@ -39,16 +39,16 @@ const User = sequelize.define("user", {
 
    exports.index=function(req, res) {
     const db = req.app.get('db');
-    console.log(db);
+      //console.log(db);
    db.models.user.findAll().then(function(data) {
-            console.log(data)
+            //console.log(data)
        if(data!==""){
             res.json(data)}
         else{
          res.send("empty")
         }
-}).catch(err => console.log("error"));
-        res.send(err)
+}).catch(err => console.log(err.toString()));
+       
    };
 
 
