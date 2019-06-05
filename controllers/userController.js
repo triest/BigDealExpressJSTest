@@ -56,8 +56,8 @@ exports.update = function (req, res) {
   if (typeof idPar != "number" && typeof Myname != "string") {
     res.send(400)
   }
-
-  User.findByPk(idPar).then(data => {
+  const db = req.app.get('db');
+  db.models.user.findByPk(idPar).then(data => {
     data.update({ name: Myname })
   });
   res.send("ok");
@@ -66,10 +66,6 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
   let idPar = req.params.id;
   const db = req.app.get('db');
-  /* if (typeof idPar != "number") {
-    res.send(400);
-    }
-  */
 
  db.models.user.findByPk(idPar).then(data => {
     data.destroy();
