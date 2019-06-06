@@ -15,9 +15,11 @@ exports.index =async function (req, res) {
   sequelize.sync().then(result=>{
   }).catch(err=> console.log(err));
   const db = req.app.get('db');
- await db.models.user.findAll().then( function (data) {
+  t = await db.transaction();
+  const o = { transaction: t };
+ await db.models.user.findAll(o).then( function (data) {
      res.json(data)
-    }).catch(err => console.log(err.toString()));
+    }, ).catch(err => console.log(err.toString()));
 };
 
 
