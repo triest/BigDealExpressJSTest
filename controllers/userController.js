@@ -11,15 +11,15 @@ const sequelize = new Sequelize({
     logging: console.log
 });
 
-exports.index = function (req, res) {
+exports.index =  function (req, res) {
   sequelize.sync().then(result=>{
     //console.log(result);
   }).catch(err=> console.log(err));
 
   const db = req.app.get('db');
   //console.log(db);
-  db.models.user.findAll().then(function (data) {
-     res.json(data)
+  db.models.user.findAll().then(async function (data) {
+    await res.json(data)
     }).catch(err => console.log(err.toString()));
 
 };
