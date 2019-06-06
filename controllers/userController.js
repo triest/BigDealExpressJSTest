@@ -12,8 +12,7 @@ const  sequelize = new Sequelize({
 });
 
 exports.index =async function (req, res) {
-  sequelize.sync().then(result=>{
-  }).catch(err=> console.log(err));
+
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
@@ -76,19 +75,21 @@ exports.delete =async function (req, res) {
 
    await db.models.user.findByPk(idPar,o).then( data => {
      data.destroy();
+     res.send(200);
   });
-  res.send(200);
+
 };
 
 exports.create =async function (req, res, next) {
   const db = req.app.get('db');
   let data = req.body; // here is your data
-
+  t = await db.transaction();
+  const o = { transaction: t };
   let name = data["name"];
- await db.models.user.create( {
+ await db.models.user.create( o,{
     name: name,
   }).then(res => {
-    res.send(200)
   }).catch(err => console.log(err));
+  res.send(200);
 }
 
