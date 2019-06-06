@@ -27,11 +27,13 @@ exports.get =async function (req, res) {
   const db = req.app.get('db');
 
   var id = req.params.id;
-  if (typeof id != "number") {
+  /*if (typeof id != "number") {
     res.send(400)
-  }
+  }*/
+  t = await db.transaction();
+  const o = { transaction: t };
 
-  await db.models.user.findByPk(id).then( data => {
+  await db.models.user.findByPk(id,o).then( data => {
     res.json(data);
   }).catch(err => console.log(err.toString()));
 };
@@ -40,8 +42,10 @@ exports.editPage =async function (req, res) {
   if (typeof req.params.id != "number") {
     res.send(400)
   }
+  t = await db.transaction();
+  const o = { transaction: t };
 
- await User.findByPk(req.params.id).then( data => {
+ await User.findByPk(req.params.id,o).then( data => {
     res.render("edit", {
       user: data
     });
@@ -55,7 +59,10 @@ exports.update =async function (req, res) {
     res.send(400)
   }
   const db = req.app.get('db');
-  await  db.models.user.findByPk(idPar).then( data => {
+  t = await db.transaction();
+  const o = { transaction: t };
+
+  await  db.models.user.findByPk(idPar,o).then( data => {
     data.update({ name: Myname })
   });
   res.send("ok");
@@ -64,8 +71,10 @@ exports.update =async function (req, res) {
 exports.delete =async function (req, res) {
   let idPar = req.params.id;
   const db = req.app.get('db');
+  t = await db.transaction();
+  const o = { transaction: t };
 
-   await db.models.user.findByPk(idPar).then( data => {
+   await db.models.user.findByPk(idPar,o).then( data => {
      data.destroy();
   });
   res.send(200);
