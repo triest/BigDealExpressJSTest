@@ -11,14 +11,6 @@ const  sequelize = new Sequelize({
     logging: console.log
 });
 
-function getAll(db){
-  return new Promise(resolve => {
-    db.models.user.findAll().then( function (data) {
-       resolve(data)
-     }, ).catch(err => console.log(err.toString()));
-  });
-}
-
 
 exports.index =async function (req, res, next) {
   const db = req.app.get('db');
@@ -38,7 +30,6 @@ exports.index =async function (req, res, next) {
 exports.get =async function (req, res) {
   const db = req.app.get('db');
   var id = req.params.id;
-
   let users;
   try {
     users = await db.models.user.findByPk(id);
@@ -50,7 +41,7 @@ exports.get =async function (req, res) {
 
 
 
-exports.editPage =async function (req, res) {
+exports.editPage =async function (req, res,next) {
   if (typeof req.params.id != "number") {
     res.send(400)
   } 
@@ -81,7 +72,11 @@ exports.update =async function (req, res) {
     res.send(400)
   }
   const db = req.app.get('db');
+  try{
   await update(db,id,name)
+  }catch(err){
+    return next(err)
+  }
   res.send("ok");
 };
 
