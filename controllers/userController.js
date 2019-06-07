@@ -16,7 +16,7 @@ exports.index =async function (req, res) {
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
- await db.models.user.findAll(o).then( function (data) {
+    await db.models.user.findAll(o).then( function (data) {
      res.json(data)
     }, ).catch(err => console.log(err.toString()));
 };
