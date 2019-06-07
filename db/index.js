@@ -12,7 +12,7 @@ if (!_.isObject(config)) {
   config = {};
 }
 
-let db = new Sequelize('test','yourname', 'yourname', config.options);
+let db = new Sequelize('testdb','qt', 'allowmetouse', config.options);
 
 let directory = path.join(__dirname, 'models');
 fs.readdirSync(directory).filter(function (file) {

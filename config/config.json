@@ -1,8 +1,8 @@
 {
   "database": {
-    "database": "test",
-    "user": "yourname",
-    "password": "yourname",
+    "database": "testdb",
+    "user": "qt",
+    "password": "allowmetouse",
     "dialect": "postgres",
     "options": {
       "dialect": "postgres"
