@@ -23,9 +23,9 @@ const sequelize = new Sequelize({
 
 // exports.User = (sequelize, DataTypes) => {
     module.exports=(sequelize, DataTypes) => {
-
-
-
+       /* sequelize.sync().then(result=>{
+            //console.log(result);
+          }).catch(err=> console.log(err))*/
         let user = sequelize.define('user',   {
         id: {
             type: DataTypes.INTEGER,
