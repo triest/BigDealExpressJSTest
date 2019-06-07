@@ -11,40 +11,39 @@ const  sequelize = new Sequelize({
     logging: console.log
 });
 
+function getAll(db,o){
+  return new Promise(resolve => {
+    db.models.user.findAll(o).then( function (data) {
+       resolve(data)
+     }, ).catch(err => console.log(err.toString()));
+  });
+}
+
+
 exports.index =async function (req, res) {
   sequelize.sync().then(result=>{
     //console.log(result);
-  })
-
-  .catch(err=> console.log(err))
+  }).catch(err=> console.log(err))
   
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
-    await db.models.user.findAll(o).then( function (data) {
+   res.json(await getAll(db,o));
+   /* await db.models.user.findAll(o).then( function (data) {
      res.json(data)
     }, ).catch(err => console.log(err.toString()));
+    */
 };
 
 
 exports.get =async function (req, res) {
-  sequelize.sync().then(result=>{
-    //console.log(result);
-  })
-
-  .catch(err=> console.log(err))
+  
   const db = req.app.get('db');
 
   var id = req.params.id;
-  /*if (typeof id != "number") {
-    res.send(400)
-  }*/
-//  t = await db.transaction();
-  //const o = { transaction: t };
-
-  await db.models.user.findByPk(id/*,o*/).then( data => {
-    res.json(data);
-  }).catch(err => console.log(err.toString()));
+   db.models.user.findByPk(id).then( data => {
+     res.json(data);
+  })
 };
 
 exports.editPage =async function (req, res) {
@@ -62,11 +61,7 @@ exports.editPage =async function (req, res) {
 };
 
 exports.update =async function (req, res) {
-  sequelize.sync().then(result=>{
-    //console.log(result);
-  })
 
-  .catch(err=> console.log(err))
   var idPar = req.params.id;
   var Myname = req.query.name;
   if (typeof idPar != "number" && typeof Myname != "string") {
@@ -83,11 +78,8 @@ exports.update =async function (req, res) {
 };
 
 exports.delete =async function (req, res) {
-  sequelize.sync().then(result=>{
-    //console.log(result);
-  })
 
-  .catch(err=> console.log(err))
+  
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -109,7 +101,6 @@ exports.create =async function (req, res, next) {
   t = await db.transaction();
   const o = { transaction: t };
   let name = data["name"];
-  console.log(name);
   db.models.user.create({
     name: name,
   }).then(res => {

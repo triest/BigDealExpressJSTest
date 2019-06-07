@@ -7,12 +7,9 @@ function sleep(ms) {
 }
 
 (async function () {
-  //console.log(sleep(100))
-  sleep(100).then( result=>console.log(result)
-  ,
-    error => {
-      // вторая функция - запустится при вызове reject
-      alert("Rejected: " + error); // error - аргумент reject
-    })
+  // console.log(sleep(100))
+  // sleep(100).then(result => console.log(result));
 
+  console.log(sleep(100));
+  console.log(await sleep(100));
 })();
