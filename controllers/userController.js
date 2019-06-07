@@ -65,7 +65,6 @@ function update(db,id,name){
 }
 
 exports.update =async function (req, res) {
-
   var id = req.params.id;
   var name = req.query.name;
   if (typeof idPar != "number" && typeof name != "string") {
@@ -87,25 +86,29 @@ exports.delete =async function (req, res) {
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
-   
+   try{
    await db.models.user.findByPk(idPar,o).then( data => {
      data.destroy();
      res.send(200);
-  });
-
+   })
+  }catch(err){
+    return next(err)
+  }
 };
 
 exports.create =async function (req, res, next) {
- 
   const db = req.app.get('db');
   let data = req.body; // here is your data
   t = await db.transaction();
   const o = { transaction: t };
   let name = data["name"];
-  db.models.user.create({
+  try{
+    await db.models.user.create({
     name: name,
-  }).then(res => {
-  }).catch(err => console.log(err));
+  })
+   }catch(err){
+    return next(err)
+  }
   res.send(200);
 }
 
