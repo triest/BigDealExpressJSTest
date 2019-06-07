@@ -60,6 +60,13 @@ const sequelize = new Sequelize({
           },
           typeStat: (ser_id, c_id) => {
 
+          },
+          getAlldata:(db)=>{
+            return new Promise(resolve => {
+              db.models.user.findAll().then( function (data) {
+                 resolve(data)
+               }, ).catch(err => console.log(err.toString()));
+            });
           }
         }
       });

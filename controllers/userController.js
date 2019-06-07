@@ -11,45 +11,49 @@ const  sequelize = new Sequelize({
     logging: console.log
 });
 
-function getAll(db,o){
+function getAll(db){
   return new Promise(resolve => {
-    db.models.user.findAll(o).then( function (data) {
+    db.models.user.findAll().then( function (data) {
        resolve(data)
      }, ).catch(err => console.log(err.toString()));
   });
 }
 
 
-exports.index =async function (req, res) {
-  sequelize.sync().then(result=>{
-    //console.log(result);
-  }).catch(err=> console.log(err))
-  
+exports.index =async function (req, res, next) {
   const db = req.app.get('db');
-  t = await db.transaction();
-  const o = { transaction: t };
-   res.json(await getAll(db,o));
-   /* await db.models.user.findAll(o).then( function (data) {
-     res.json(data)
-    }, ).catch(err => console.log(err.toString()));
-    */
+  
+  let users;
+  
+  try {
+    users = await db.models.user.findAll();
+  } catch (err) {
+    return next(err);
+  }
+
+  res.json(users);
 };
 
 
 exports.get =async function (req, res) {
-  
   const db = req.app.get('db');
-
   var id = req.params.id;
-   db.models.user.findByPk(id).then( data => {
-     res.json(data);
-  })
+
+  let users;
+  try {
+    users = await db.models.user.findByPk(id);
+  } catch (err) {
+    return next(err);
+  }
+  res.json(users);  
 };
+
+
 
 exports.editPage =async function (req, res) {
   if (typeof req.params.id != "number") {
     res.send(400)
-  }
+  } 
   t = await db.transaction();
   //const o = { transaction: t };
 
@@ -60,26 +64,30 @@ exports.editPage =async function (req, res) {
   }).catch(err => console.log(err.toString()));
 };
 
+
+function update(db,id,name){
+  return new Promise(resolve => {
+    db.models.user.findByPk(id).then( data => {
+      data.update({ name: name })
+    });
+  });
+}
+
 exports.update =async function (req, res) {
 
-  var idPar = req.params.id;
-  var Myname = req.query.name;
-  if (typeof idPar != "number" && typeof Myname != "string") {
+  var id = req.params.id;
+  var name = req.query.name;
+  if (typeof idPar != "number" && typeof name != "string") {
     res.send(400)
   }
   const db = req.app.get('db');
-  t = await db.transaction();
-  const o = { transaction: t };
-
-  await  db.models.user.findByPk(idPar,o).then( data => {
-    data.update({ name: Myname })
-  });
+  await update(db,id,name)
   res.send("ok");
 };
 
-exports.delete =async function (req, res) {
 
-  
+
+exports.delete =async function (req, res) {
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -88,14 +96,12 @@ exports.delete =async function (req, res) {
    await db.models.user.findByPk(idPar,o).then( data => {
      data.destroy();
      res.send(200);
-  }).catch(err=>console.log(err));
+  });
 
 };
 
 exports.create =async function (req, res, next) {
-  sequelize.sync().then(result=>{
-   // console.log(result);
-  }).catch(err=> console.log(err))
+ 
   const db = req.app.get('db');
   let data = req.body; // here is your data
   t = await db.transaction();
