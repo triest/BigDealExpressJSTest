@@ -40,7 +40,7 @@
         <tr v-for="user in users">
             <td>{{user.id}}</td>
             <td>{{user.name}}</td>
-            <td> <button class="btn" @click="deleWindow(user)"><i class="fa fa-trash"></i></button>
+            <td> <button class="btn" @click="deleteUser(user)"><i class="fa fa-trash"></i></button>
             <td><button class="btn" @click="editModel(user)">Редактировать</button></td>
         </tr>
         </tbody>
@@ -71,8 +71,9 @@
                     .catch(
                          error=>console.log(error)
                     )
+                    console.log("GET USERS")
             },
-           async deleWindow(item){
+            deleteUser(item){
                axios.delete('/users/'+item.id).then( this.getUsers());
               },
             editModel(user){
