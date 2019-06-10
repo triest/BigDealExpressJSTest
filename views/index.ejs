@@ -66,15 +66,14 @@
                     .then(
                         response => {
                             this.users = response.data;
-                            console.log(this.users)
                         }
                     )
                     .catch(
                          error=>console.log(error)
                     )
             },
-            deleWindow(item){
-                axios.delete('/users/'+item.id).then(this.getUsers())
+           async deleWindow(item){
+               axios.delete('/users/'+item.id).then( this.getUsers());
               },
             editModel(user){
                 this.currentId=user.id;

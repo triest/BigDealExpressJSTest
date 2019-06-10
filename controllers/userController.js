@@ -71,7 +71,6 @@ exports.create = async function (req, res, next) {
   const db = req.app.get('db');
   let data = req.body;
   t = await db.transaction();
-  const o = { transaction: t };
   let name = data["name"];
   if (name == "" && typeof name != "string") {
     res.send(400);

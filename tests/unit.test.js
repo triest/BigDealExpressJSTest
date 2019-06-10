@@ -25,10 +25,12 @@ describe("User test", function(){
     body: CorrectPost,
   }, function (err, response, body) {
     assert.strictEqual(err, null);
-    assert.strictEqual(response.statusCode, 200);
+    assert.strictEqual(response.statusCode, 201);
     done();
   }); 
 })
+
+
 
 it('test get', function (done) {  
   request({
