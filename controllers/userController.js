@@ -1,20 +1,19 @@
 
 
 
-exports.index =async function (req, res, next) {
+exports.index = async function (req, res, next) {
   const db = req.app.get('db');
-   let users;
+  let users;
   try {
     users = await db.models.user.findAll();
   } catch (err) {
     return next(err);
   }
-
   res.json(users);
 };
 
 
-exports.get =async function (req, res) {
+exports.get = async function (req, res) {
   const db = req.app.get('db');
   var id = req.params.id;
   let users;
@@ -23,44 +22,27 @@ exports.get =async function (req, res) {
   } catch (err) {
     return next(err);
   }
-  res.json(users);  
+  res.json(users);
 };
 
-
-
-exports.editPage =async function (req, res,next) {
-  if (typeof req.params.id != "number") {
-    res.send(400)
-  } 
-  t = await db.transaction();
-  //const o = { transaction: t };
-
- await User.findByPk(req.params.id).then( data => {
-    res.render("edit", {
-      user: data
-    });
-  }).catch(err => console.log(err.toString()));
-};
-
-
-function update(db,id,name){
+function update(db, id, name) {
   return new Promise(resolve => {
-    db.models.user.findByPk(id).then( data => {
+    db.models.user.findByPk(id).then(data => {
       data.update({ name: name })
     });
   });
 }
 
-exports.update =async function (req, res,next) {
+exports.update = async function (req, res, next) {
   var id = req.params.id;
   var name = req.query.name;
   if (typeof idPar != "number" && typeof name != "string") {
     res.send(400)
   }
   const db = req.app.get('db');
-  try{
-  await update(db,id,name)
-  }catch(err){
+  try {
+    await update(db, id, name)
+  } catch (err) {
     return next(err)
   }
   res.send("ok");
@@ -68,32 +50,33 @@ exports.update =async function (req, res,next) {
 
 
 
-exports.delete =async function (req, res,next) {
+exports.delete = async function (req, res, next) {
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
-   try{
-   await db.models.user.findByPk(idPar,o).then( data => {
-     data.destroy();
-     res.send(200);
-   })
-  }catch(err){
-    return next(err)
+  try {
+    await db.models.user.findByPk(idPar, o).then(data => {
+      data.destroy();
+      res.send(200);
+    })
+  } catch (err) {
+    //return next(err)
+    res.send(500)
   }
 };
 
-exports.create =async function (req, res, next) {
+exports.create = async function (req, res, next) {
   const db = req.app.get('db');
-  let data = req.body; // here is your data
+  let data = req.body;
   t = await db.transaction();
   const o = { transaction: t };
   let name = data["name"];
-  try{
+  try {
     await db.models.user.create({
-    name: name,
-  })
-   }catch(err){
+      name: name,
+    })
+  } catch (err) {
     return next(err)
   }
   res.send(200);

@@ -1,13 +1,6 @@
-const userController = require('../controllers/userController.js');
+
 
 var express = require('express');
-var router = express.Router();
-
-const Sequelize = require("sequelize");
-
-var app = express();
-
-
 
 
 let CorrectPost = {
@@ -19,7 +12,8 @@ let EmptyPost = {
 };
 
 
-describe("User post test", function(){ 
+describe("User test", function(){ 
+  
   const assert = require('assert');
   const request = require('request');
   const host="http://127.0.0.1:3000";
@@ -51,10 +45,48 @@ it('test get', function (done) {
   }); 
 })
 
+it('test delete', function (done) {
+  //send delete
+  let lastId;
+  request({
+    url: host + '/users',
+    method: 'get',
+    json: false,
+  }, function (err, response, body) {
+    assert.strictEqual(err, null);
+    assert.strictEqual(response.statusCode, 200);
+    body = JSON.parse(body);
+    console.log(body[0]);
+    lastId=body[0].id;
+    console.log(body)
+  }); 
 
+  //console.log(lastId)
 
+  request({
+    url: host + '/users/'+lastId,
+    method: 'delete',
+    json: false,
+  }, function (err, response, body) {
+    assert.strictEqual(err, null);
+    assert.strictEqual(response.statusCode, 200);
+    //try get record with this id
+    console.log(lastId);
+    request({
+      url: host + '/users/'+lastId,
+      method: 'get',
+      json: false,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 200);
+      //body = JSON.parse(body);
+      //assert.strictEqual(null);
+    }); 
+    done();
+  }); 
+})
 
-
+/*
 it('should get 500 and create acceptor', function (done) {    
   request({
     url: host + '/users',
@@ -67,7 +99,8 @@ it('should get 500 and create acceptor', function (done) {
     done();
   }); 
 })
-
+*/
 
 
 });
+
