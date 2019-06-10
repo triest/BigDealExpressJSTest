@@ -65,8 +65,8 @@
                     .get('/users')
                     .then(
                         response => {
-                            //   console.log(response);
                             this.users = response.data;
+                            console.log(this.users)
                         }
                     )
                     .catch(
@@ -74,9 +74,8 @@
                     )
             },
             deleWindow(item){
-                axios.delete('/users/'+item.id)
-                this.getUsers();
-            },
+                axios.delete('/users/'+item.id).then(this.getUsers())
+              },
             editModel(user){
                 this.currentId=user.id;
                 this.currnentName=user.name;

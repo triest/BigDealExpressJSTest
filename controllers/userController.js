@@ -25,13 +25,8 @@ exports.get = async function (req, res) {
   res.json(users);
 };
 
-function update(db, id, name) {
-  return new Promise(resolve => {
-    db.models.user.findByPk(id).then(data => {
-      data.update({ name: name })
-    });
-  });
-}
+
+
 
 exports.update = async function (req, res, next) {
   var id = req.params.id;
@@ -41,11 +36,16 @@ exports.update = async function (req, res, next) {
   }
   const db = req.app.get('db');
   try {
-    await update(db, id, name)
+    data = await db.models.user.findByPk(id)
+    if (data) {
+      data.update({ name: name })
+    } else {
+      return res.send(500)
+    }
   } catch (err) {
     return next(err)
   }
-  res.send("ok");
+  res.send(200);
 };
 
 
@@ -56,12 +56,13 @@ exports.delete = async function (req, res, next) {
   t = await db.transaction();
   const o = { transaction: t };
   try {
-    await db.models.user.findByPk(idPar, o).then(data => {
+    data = await db.models.user.findByPk(idPar, o)
+    if (data) {
       data.destroy();
       res.send(200);
-    })
+    }
+
   } catch (err) {
-    //return next(err)
     res.send(500)
   }
 };
@@ -72,6 +73,9 @@ exports.create = async function (req, res, next) {
   t = await db.transaction();
   const o = { transaction: t };
   let name = data["name"];
+  if (name == "" && typeof name != "string") {
+    res.send(400);
+  }
   try {
     await db.models.user.create({
       name: name,
@@ -79,6 +83,6 @@ exports.create = async function (req, res, next) {
   } catch (err) {
     return next(err)
   }
-  res.send(200);
+  res.send(201);
 }
 
