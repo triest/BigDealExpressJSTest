@@ -1,22 +1,9 @@
 
-const Sequelize = require("sequelize");
-
-const  sequelize = new Sequelize({
-    username: 'qt',
-    password: 'allowmetouse',
-    database: 'testdb',
-    dialect: "postgres",
-    host: "localhost",
-    port: "5432",
-    logging: console.log
-});
 
 
 exports.index =async function (req, res, next) {
   const db = req.app.get('db');
-  
-  let users;
-  
+   let users;
   try {
     users = await db.models.user.findAll();
   } catch (err) {

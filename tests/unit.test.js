@@ -5,7 +5,7 @@ var router = express.Router();
 
 const Sequelize = require("sequelize");
 
-var app = express();
+//var app = express();
 
 const  sequelize = new Sequelize({
     username: 'qt',
@@ -17,20 +17,24 @@ const  sequelize = new Sequelize({
     logging: console.log
 });
 
-describe("User controller test", function(){
-  const db = app.get('db');
-  db.models.user.destroy();
-  let name="testname"
-  //add new
-  db.models.user.create( {
-    name: name,
-  }).then(console.log("success created")).catch(err => console.log(err));
-  //try wind new
- db.models.user.findOne().then( user => {
-}).catch(err => console.log(err.toString()));
+describe("User controller test", function(){ 
+  const assert = require('assert');
+  const request = require('request');
+ 
+  request({
+    url: host + '/users',
+    method: 'POST',
+    json: true,
+    body: accMock,
+   
+  }, function (err, response, body) {
+    assert.strictEqual(err, null);
+    assert.strictEqual(response.statusCode, 200);
+   // assert.strictEqual(typeof body, 'json');
+  //  assert.strictEqual(body.role.name, 'acceptor');
+ //   assert.strictEqual(body.credit_limits instanceof Array, true);
 
- if (name!=user.name){
-  throw new Error(`Expected ${name}, but got ${user.name}`);
- }
+    done();
+  }); 
 
 });
