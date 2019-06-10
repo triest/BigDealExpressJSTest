@@ -51,7 +51,7 @@ function update(db,id,name){
   });
 }
 
-exports.update =async function (req, res) {
+exports.update =async function (req, res,next) {
   var id = req.params.id;
   var name = req.query.name;
   if (typeof idPar != "number" && typeof name != "string") {
@@ -68,7 +68,7 @@ exports.update =async function (req, res) {
 
 
 
-exports.delete =async function (req, res) {
+exports.delete =async function (req, res,next) {
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
