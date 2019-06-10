@@ -9,7 +9,6 @@ const userController = require('../controllers/userController.js');
 
 router.get("/",userController.index);
 router.get('/:id', userController.get);
-router.get('/edit/:id',userController.editPage);
 router.put('/:id', userController.update);
 router.delete('/:id',userController.delete );
 router.post('/',userController.create );
