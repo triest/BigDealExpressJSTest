@@ -27,7 +27,20 @@
                 </div>
         </div>
 
-    <a href="/add">Добавить</a>
+        <div id="add-modal" class="modal fade">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                         </div>
+                        <div class="modal-body">
+                             <input type="text" v-model="currnentName">
+                             <button class="btn" @click="newUser()">Создать</button>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+    <a href="addModal">Добавить</a>
     <p>Пользователи</p>
     <table class="table table-condensed">
         <thead>
@@ -56,9 +69,13 @@
         data: {
             users: [],
             currentId:'',
-            currnentName:''
+            currnentName:'',
+            name:'',
         },
         methods: {
+            addModal: function(){
+                $("#add-modal").modal('show');  
+            },
             getUsers: function () {
                 this.users=[];
                 axios
@@ -74,7 +91,11 @@
                     console.log("GET USERS")
             },
             deleteUser(item){
-               axios.delete('/users/'+item.id).then( this.getUsers());
+               axios.delete('/users/'+item.id)
+               .then(() => {
+                   console.log('DELETE')
+                   this.getUsers();
+               });
               },
             editModel(user){
                 this.currentId=user.id;
@@ -86,7 +107,30 @@
                     axios.put('/users/'+this.currentId+'?name='+this.currnentName)
                 }
                 this.getUsers();
-            }
+            },
+            addWindow(){
+
+            },
+            newUser(){
+                console.log("new user");
+                let formData = new FormData();
+                formData.append('name',this.name);
+                console.log(this.name.value)
+                const data=[{name:this.name}]
+                   pleaseinputname=false;
+                    axios
+                        .post('/users', {name: this.name})
+                        .then(
+                            response => {
+                                // console.log(response.data);
+                                if (response.data == "ok") {
+                                    this.name = "";
+                                    alert("Запись создана!");
+                                }
+                            }
+                        )
+                        .catch()
+                }
         },
         beforeMount() {
             console.log("test");
