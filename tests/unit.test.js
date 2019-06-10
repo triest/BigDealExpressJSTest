@@ -17,24 +17,28 @@ const  sequelize = new Sequelize({
     logging: console.log
 });
 
-describe("User controller test", function(){ 
+let accMock = {
+  name: 'test'
+};
+
+describe("User post test", function(){ 
   const assert = require('assert');
   const request = require('request');
- 
+  const host="http://127.0.0.1:3000";
+  it('should get 200 and create acceptor', function (done) {
   request({
     url: host + '/users',
     method: 'POST',
     json: true,
     body: accMock,
-   
   }, function (err, response, body) {
     assert.strictEqual(err, null);
     assert.strictEqual(response.statusCode, 200);
    // assert.strictEqual(typeof body, 'json');
   //  assert.strictEqual(body.role.name, 'acceptor');
- //   assert.strictEqual(body.credit_limits instanceof Array, true);
-
+ //   assert.strictEqual(body.credit_limits instanceof Array, true)
     done();
   }); 
+})
 
 });
