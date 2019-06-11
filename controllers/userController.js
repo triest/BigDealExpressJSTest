@@ -1,5 +1,20 @@
 
+var idValidate=function(req,res,next){
+  let id = req.params.id;
+  if (typeof id != "number") {
+    res.send(400)
+  }
+  return next
+}
 
+var nameValidate=function(req,res,next){
+  let data = req.body;
+  let name = data["name"];
+  if (typeof name != "string" && name!="") {
+    return res.send(400)
+  }
+  return next
+}
 
 exports.index = async function (req, res, next) {
   const db = req.app.get('db');
@@ -12,19 +27,11 @@ exports.index = async function (req, res, next) {
   res.json(users);
 };
 
-var paramsValidte=function(req, res, next){
-  var id = req.params.id;
-   id=parseInt(id)
-  if (typeof id != "number") {
-     res.send(400)
-  }
-  return next
-}
 
-exports.get = async function (req, res,next) {
-  paramsValidte(req,res,next)
+exports.get = async function (req, res, next) {
+  idValidate(req, res, next)
   const db = req.app.get('db');
-  var id = req.params.id;
+  let id = req.params.id;
   let user;
   try {
     user = await db.models.user.findByPk(id);
@@ -35,20 +42,10 @@ exports.get = async function (req, res,next) {
 };
 
 
-var updateValidate=function(req, res, next){
-  var id = req.params.id;
-   id=parseInt(id)
-   if (typeof id != "number" && typeof name != "string") {
-    return res.send(400)
-  }
-  return next
-}
-
-
 exports.update = async function (req, res, next) {
-  updateValidate(req,res,next)
-  var id = req.params.id;
-  var name = req.query.name;
+  idValidate(req, res, nameValidate)
+  let id = req.params.id;
+  let name = req.query.name;
   const db = req.app.get('db');
   try {
     data = await db.models.user.findByPk(id)
@@ -63,18 +60,9 @@ exports.update = async function (req, res, next) {
   res.send(200);
 };
 
-var deleteValidate=function(req, res, next){
-  var id = req.params.id;
-   id=parseInt(id)
-   if (typeof id != "number" || id<0) {
-    return res.send(400)
-  }
-  return next
-}
 
-
-exports.delete = async function (req, res,next) {
-  deleteValidate(req,res,next)
+exports.delete = async function (req, res, next) {
+  idValidate(req, res, next)
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -93,23 +81,12 @@ exports.delete = async function (req, res,next) {
   }
 };
 
-var createValidate=function(req, res, next){
-   var id = req.params.id;
-   id=parseInt(id)
-   let data = req.body;
-   let name = data["name"];
-   if (name == "" && typeof name != "string") {
-     res.send(400);
-   }
-  return next
-}
 
 exports.create = async function (req, res, next) {
-  createValidate(req,res,next)
+  nameValidate(req, res, next)
   const db = req.app.get('db');
   let data = req.body;
   let name = data["name"];
-  console.log(name)
   try {
     await db.models.user.create({
       name: name,

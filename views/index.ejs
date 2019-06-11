@@ -112,12 +112,8 @@
 
             },
             newUser(){
-                console.log("new user");
                 let formData = new FormData();
-
                 formData.append('name',this.currnentName);
-                console.log(this.currnentName)
-               // const data=[{name:this.currnentName}]
                    pleaseinputname=false;
                     axios
                         .post('/users', {name: this.currnentName})
@@ -131,6 +127,7 @@
                             }
                         )
                         .catch()
+                        this.getUsers()
                 }
         },
         beforeMount() {
