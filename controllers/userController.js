@@ -1,16 +1,13 @@
 
 var idValidate=function(req,res,next){
   let id = req.params.id;
-  try{  
+   
     id=parseInt(id,10)
-  }
-  catch{
-    res.send(401)
-  }
-  if (typeof id != "number") {
-    res.send(400)
-  }
-  return next
+    if (id==NaN){
+      return 401
+    }else{
+      return next
+    }
 }
 
 var nameValidate=function(req,res,next){
