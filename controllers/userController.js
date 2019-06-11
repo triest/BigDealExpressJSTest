@@ -49,7 +49,6 @@ exports.update = async function (req, res, next) {
   updateValidate(req,res,next)
   var id = req.params.id;
   var name = req.query.name;
-
   const db = req.app.get('db');
   try {
     data = await db.models.user.findByPk(id)
@@ -64,9 +63,18 @@ exports.update = async function (req, res, next) {
   res.send(200);
 };
 
+var deleteValidate=function(req, res, next){
+  var id = req.params.id;
+   id=parseInt(id)
+   if (typeof id != "number" || id<0) {
+    return res.send(400)
+  }
+  return next
+}
 
 
 exports.delete = async function (req, res,next) {
+  deleteValidate(req,res,next)
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -85,13 +93,23 @@ exports.delete = async function (req, res,next) {
   }
 };
 
+var createValidate=function(req, res, next){
+   var id = req.params.id;
+   id=parseInt(id)
+   let data = req.body;
+   let name = data["name"];
+   if (name == "" && typeof name != "string") {
+     res.send(400);
+   }
+  return next
+}
+
 exports.create = async function (req, res, next) {
+  createValidate(req,res,next)
   const db = req.app.get('db');
   let data = req.body;
   let name = data["name"];
-  if (name == "" && typeof name != "string") {
-    res.send(400);
-  }
+  console.log(name)
   try {
     await db.models.user.create({
       name: name,
