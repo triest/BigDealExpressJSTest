@@ -1,12 +1,11 @@
 
 var idValidate=function(req,res,next){
   let id = req.params.id;
-   
-    id=parseInt(id,10)
+    id=parseInt(id)
     if (id==NaN){
-      return 401
+       res.send(401)
     }else{
-      return next
+       next()
     }
 }
 
@@ -14,9 +13,9 @@ var nameValidate=function(req,res,next){
   let data = req.body;
   let name = data["name"];
   if (typeof name != "string" && name!="") {
-    return res.send(400)
+     res.send(400)
   }
-  return next
+   next()
 }
 
 exports.index = async function (req, res, next) {
@@ -25,7 +24,7 @@ exports.index = async function (req, res, next) {
   try {
     users = await db.models.user.findAll();
   } catch (err) {
-    return next(err);
+      next(err);
   }
   res.json(users);
 };
@@ -39,7 +38,7 @@ exports.get = async function (req, res, next) {
   try {
     user = await db.models.user.findByPk(id);
   } catch (err) {
-    return next(err);
+     next(err);
   }
   res.json(user);
 };
@@ -55,10 +54,10 @@ exports.update = async function (req, res, next) {
     if (data) {
       await data.update({ name: name })
     } else {
-      return res.send(404)
+       res.send(404)
     }
   } catch (err) {
-    return next(err)
+     next(err)
   }
   res.send(200);
 };
@@ -73,12 +72,10 @@ exports.delete = async function (req, res, next) {
   try {
     data = await db.models.user.findByPk(idPar, o)
     if (!data) {
-      return res.send(404)
+       res.send(404)
     }
     await data.destroy();
-
     res.send(200);
-
   } catch (err) {
     next(err)
   }
@@ -95,7 +92,7 @@ exports.create = async function (req, res, next) {
       name: name,
     })
   } catch (err) {
-    return next(err)
+     next(err)
   }
   res.send(201);
 }
