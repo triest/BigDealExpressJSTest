@@ -57,7 +57,7 @@ exports.update = async function (req, res, next) {
        res.send(404)
     }
   } catch (err) {
-     next(err)
+    res.send(400)
   }
   res.send(200);
 };
@@ -92,7 +92,7 @@ exports.create = async function (req, res, next) {
       name: name,
     })
   } catch (err) {
-     next(err)
+     //next(err)
   }
   res.send(201);
 }
