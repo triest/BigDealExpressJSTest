@@ -1,4 +1,6 @@
 
+const filter = require('../controllers/filter.js');
+
 
 
 exports.index = async function (req, res, next) {
@@ -14,7 +16,7 @@ exports.index = async function (req, res, next) {
 
 
 exports.get = async function (req, res, next) {
-  idValidate(req, res, next)
+  filter.validateId(req, res, next)
   const db = req.app.get('db');
   let id = req.params.id;
   let user;
@@ -28,7 +30,7 @@ exports.get = async function (req, res, next) {
 
 
 exports.update = async function (req, res, next) {
-  idValidate(req, res, nameValidate)
+  filter.validateId(req, res, validateName)
   let id = req.params.id;
   let name = req.query.name;
   const db = req.app.get('db');
@@ -47,7 +49,7 @@ exports.update = async function (req, res, next) {
 
 
 exports.delete = async function (req, res, next) {
-  idValidate(req, res, next)
+  filter.validateId(req, res, next)
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -66,7 +68,7 @@ exports.delete = async function (req, res, next) {
 
 
 exports.create = async function (req, res, next) {
-  nameValidate(req, res, next)
+  filter.validateName(req, res, next)
   const db = req.app.get('db');
   let data = req.body;
   let name = data["name"];
@@ -75,7 +77,6 @@ exports.create = async function (req, res, next) {
       name: name,
     })
   } catch (err) {
-    //next(err)
   }
   res.send(201);
 }
