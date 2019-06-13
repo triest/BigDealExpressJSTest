@@ -30,10 +30,10 @@ exports.update = async function (req, res, next) {
   const db = req.app.get('db');
   try {
     let t = await db.transaction();
-    let data = await db.models.user.findByPk(res.locals.id, { transaction: t })
-    if (data) {
-      data.name = res.locals.name;
-      await data.save();
+    let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    if (user) {
+      user.name = res.locals.name;
+      await user.save();
       return res.sendStatus(200);
     } else {
       return res.sendStatus(404)
@@ -48,12 +48,12 @@ exports.delete = async function (req, res, next) {
   const db = req.app.get('db');
   let t = await db.transaction();
   try {
-    data = await db.models.user.findByPk(res.locals.id, { transaction: t })
-    if (!data) {
+    user = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    if (!user) {
       return res.send(404)
     }
     else {
-      await data.destroy();
+      await user.destroy();
       return res.send(200);
     }
   } catch (err) {
