@@ -37,7 +37,7 @@ exports.update = async function (req, res, next) {
       async (t) => {
         data = await db.models.user.findByPk(id, { transaction: t })
         if (data) {
-          await data.update({ name: name }, { transaction: t })
+          data.update({ name: name }, { transaction: t })
           return res.sendStatus(200);
         } else {
           return res.sendStatus(404)
@@ -47,7 +47,6 @@ exports.update = async function (req, res, next) {
   } catch (err) {
     return res.sendStatus(400);
   }
-  res.sendStatus(200);
 };
 
 

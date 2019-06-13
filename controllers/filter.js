@@ -7,6 +7,7 @@ exports.validateId = function (req, res, next) {
   res.locals.id = id;
   next();
 };
+
 exports.validateName = function (req, res, next) {
   let name = req.body.name;
   if (typeof name !== "string" || name == "") {
