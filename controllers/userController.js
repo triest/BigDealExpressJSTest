@@ -31,6 +31,32 @@ exports.get = async function (req, res, next) {
 
 exports.update = async function (req, res, next) {
   let id = req.params.id;
+  console.log(id);
+  let name = req.query.name;
+  const db = req.app.get('db');
+  try {
+    let result = await sequelize.transaction(
+      async (t) => {
+        data = await db.models.user.findByPk(id,{transaction:t})
+       if (data) {
+       await data.update({ name: name },{transaction:t})
+       return res.sendStatus(200);
+        } else {
+        return res.sendStatus(404)
+       }
+      }
+     );
+  } catch (err) {
+   //return res.send(400)
+   return res.sendStatus(400);
+  }
+  res.sendStatus(200);
+};
+
+
+/*
+exports.update = async function (req, res, next) {
+  let id = req.params.id;
   let name = req.query.name;
   const db = req.app.get('db');
   try {
@@ -44,25 +70,6 @@ exports.update = async function (req, res, next) {
     res.send(400)
   }
   res.send(200);
-};
-
-/*
-exports.update = async function (req, res, next) {
-  let id = req.params.id;
-  let name = res.locals.name;
-  const db = req.app.get('db');
-  try {
-    data = await db.models.user.findByPk(id)
-    if (data) {
-      await db.models.update({ name: name })
-      await data.transaction(transaction=>db.models.update({ name: name,transaction }))
-    } else {
-      return res.send(404)
-    }
-  } catch (err) {
-    return res.send(400)
-  }
-  return res.send(200);
 };
 */
 
