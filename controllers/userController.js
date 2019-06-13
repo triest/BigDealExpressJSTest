@@ -23,7 +23,7 @@ exports.get = async function (req, res, next) {
   if (!user) {
     return res.send(404)
   }
-  res.json(user);
+  return res.json(user);
 };
 
 exports.update = async function (req, res, next) {
