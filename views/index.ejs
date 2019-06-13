@@ -112,7 +112,7 @@
         },
         saveEdit() {
           if (this.currnentName != "" && this.currentId != "") {
-            axios.put('/users/' + this.currentId + '?name=' + this.currnentName)
+            axios.put('/users/' + this.currentId, { name: this.currnentName })
               .then(
                 response => {
                   if (response.status == 200) {

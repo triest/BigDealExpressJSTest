@@ -6,7 +6,7 @@ const filter = require('../controllers/filter.js');
 
 router.get("/", userController.index);
 router.get('/:id', filter.validateId, userController.get);
-router.put('/:id', filter.validateId, userController.update);
+router.put('/:id', filter.validateId, filter.validatePutName, userController.update);
 router.delete('/:id', filter.validateId, userController.delete);
 router.post('/', filter.validateName, userController.create);
 

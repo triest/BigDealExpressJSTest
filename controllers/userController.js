@@ -27,28 +27,42 @@ exports.get = async function (req, res, next) {
   res.json(user);
 };
 
-
 exports.update = async function (req, res, next) {
   let id = res.locals.id;
-  let name = req.query.name;
+  let name = res.locals.name;
   const db = req.app.get('db');
   try {
-    let result = await sequelize.transaction(
-      async (t) => {
-        data = await db.models.user.findByPk(id, { transaction: t })
-        if (data) {
-          data.update({ name: name }, { transaction: t })
-          return res.sendStatus(200);
-        } else {
-          return res.sendStatus(404)
-        }
-      }
-    );
+    let t = await db.transaction();
+    data = await db.models.user.findByPk(id, { transaction: t })
+    if (data) {
+      //await data.update({ name: name }, { transaction: t })
+      data.name = name;
+      await data.save();
+      return res.sendStatus(200);
+    } else {
+      return res.sendStatus(404)
+    }
   } catch (err) {
-    return res.sendStatus(400);
+    return next(err)
   }
 };
 
+// exports.update = async function (req, res, next) {
+//   let id = req.params.id;
+//   let name = req.query.name;
+//   const db = req.app.get('db');
+//   try {
+//     data = await db.models.user.findByPk(id)
+//     if (data) {
+//       await data.update({ name: name })
+//     } else {
+//       res.send(404)
+//     }
+//   } catch (err) {
+//     res.send(400)
+//   }
+//   res.send(200);
+// };
 
 /*
 exports.update = async function (req, res, next) {
