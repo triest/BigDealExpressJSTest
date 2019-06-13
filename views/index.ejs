@@ -83,6 +83,7 @@
           $("#edit-modal").modal('hide');
         },
         addModal: function () {
+          this.currnentName = "";
           $("#add-modal").modal('show');
         },
         getUsers: function () {
@@ -128,33 +129,41 @@
               )
               .catch(
               )
+            $("#edit-modal").modal('hide');
+          } else {
+            alert("Нет данных")
           }
-          $("#edit-modal").modal('hide');
+
           this.getUsers();
         },
         newUser() {
           let formData = new FormData();
-          formData.append('name', this.currnentName);
-          pleaseinputname = false;
-          axios
-            .post('/users', { name: this.currnentName })
-            .then(
-              response => {
-                if (response.status == 201) {
-                  this.name = "";
-                  alert("Запись создана!");
-                  this.hideAddModal();
+          if (this.currnentName == "") {
+            alert("Введите имя")
+          }
+          else {
+            formData.append('name', this.currnentName);
+            pleaseinputname = false;
+            axios
+              .post('/users', { name: this.currnentName })
+              .then(
+                response => {
+                  if (response.status == 201) {
+                    this.name = "";
+                    alert("Запись создана!");
+                    this.hideAddModal();
+                  }
+                  else {
+                    alert("Ошибка!");
+                    this.hideAddModal();
+                  }
+                  this.getUsers();
                 }
-                else {
-                  alert("Ошибка!");
-                  this.hideAddModal();
-                }
-                this.getUsers();
-              }
-            )
-            .catch(
-            )
-          getUsers()
+              )
+              .catch(
+              )
+            getUsers()
+          }
         }
       },
       beforeMount() {

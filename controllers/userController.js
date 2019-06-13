@@ -39,7 +39,7 @@ exports.update = async function (req, res, next) {
       return res.sendStatus(404)
     }
   } catch (err) {
-    return next(err)
+    next(err)
   }
 };
 
