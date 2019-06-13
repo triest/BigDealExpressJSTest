@@ -30,7 +30,7 @@ exports.update = async function (req, res, next) {
   const db = req.app.get('db');
   try {
     let t = await db.transaction();
-    data = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    let data = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (data) {
       data.name = res.locals.name;
       await data.save();
@@ -46,7 +46,7 @@ exports.update = async function (req, res, next) {
 
 exports.delete = async function (req, res, next) {
   const db = req.app.get('db');
-  t = await db.transaction();
+  let t = await db.transaction();
   try {
     data = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (!data) {
