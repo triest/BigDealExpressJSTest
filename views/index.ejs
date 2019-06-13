@@ -31,14 +31,16 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                         </div>
+                            Добавить нового пользователя:
+                        </div>
                         <div class="modal-body">
                              <input type="text" v-model="currnentName">
                              <button class="btn" @click="newUser()">Создать</button>
                         </div>
+                        <button @click="hideAddModal()">Отмена</button>
                     </div>
                 </div>
-        </div>
+      </div>
 
     <a @click="addModal()">Добавить</a>
     <p>Пользователи</p>
@@ -73,8 +75,11 @@
             name:'',
         },
         methods: {
+              hideAddModal:function(){
+                $("#add-modal").modal('hide');
+              },
             addModal: function(){
-                $("#add-modal").modal('show');  
+                $("#add-modal").modal('show');
             },
             getUsers: function () {
                 this.users=[];
@@ -93,7 +98,6 @@
             deleteUser(item){
                axios.delete('/users/'+item.id)
                .then(() => {
-                   console.log('DELETE')
                    this.getUsers();
                });
               },
@@ -105,11 +109,23 @@
             saveEdit(){
             if (this.currnentName!="" && this.currentId!=""){
                     axios.put('/users/'+this.currentId+'?name='+this.currnentName)
+                    .then(
+                            response => {
+                                if (response.status==200) {
+                                    this.name = "";
+                                    alert("Запись изменена!");
+                                    this.hideAddModal();
+                                }
+                                else{
+                                  alert("Ошибка!");
+                                    this.hideAddModal();
+                                }
+                            }
+                        )
+                        .catch()
                 }
+                $("#edit-modal").modal('hide');
                 this.getUsers();
-            },
-            addWindow(){
-
             },
             newUser(){
                 let formData = new FormData();
@@ -119,10 +135,14 @@
                         .post('/users', {name: this.currnentName})
                         .then(
                             response => {
-                                // console.log(response.data);
-                                if (response.data == "ok") {
+                                if (response.status==201) {
                                     this.name = "";
                                     alert("Запись создана!");
+                                    this.hideAddModal();
+                                }
+                                else{
+                                  alert("Ошибка!");
+                                    this.hideAddModal();
                                 }
                             }
                         )
