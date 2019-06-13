@@ -123,13 +123,14 @@
                     alert("Ошибка!");
                     this.hideAddModal();
                   }
+                  this.getUsers();
                 }
               )
-              .catch()
+              .catch(
+              )
           }
           $("#edit-modal").modal('hide');
           this.getUsers();
-          getUsers();
         },
         newUser() {
           let formData = new FormData();
@@ -148,9 +149,11 @@
                   alert("Ошибка!");
                   this.hideAddModal();
                 }
+                this.getUsers();
               }
             )
-            .catch()
+            .catch(
+            )
           getUsers()
         }
       },

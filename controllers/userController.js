@@ -14,10 +14,9 @@ exports.index = async function (req, res, next) {
 
 exports.get = async function (req, res, next) {
   const db = req.app.get('db');
-  let id = res.locals.id;
   let user;
   try {
-    user = await db.models.user.findByPk(id);
+    user = await db.models.user.findByPk(res.locals.id);
   } catch (err) {
     return next(err);
   }
@@ -28,14 +27,12 @@ exports.get = async function (req, res, next) {
 };
 
 exports.update = async function (req, res, next) {
-  let id = res.locals.id;
-  let name = res.locals.name;
   const db = req.app.get('db');
   try {
     let t = await db.transaction();
-    data = await db.models.user.findByPk(id, { transaction: t })
+    data = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (data) {
-      data.name = name;
+      data.name = res.locals.name;
       await data.save();
       return res.sendStatus(200);
     } else {
@@ -48,12 +45,11 @@ exports.update = async function (req, res, next) {
 
 
 exports.delete = async function (req, res, next) {
-  let idPar = res.locals.id;
   const db = req.app.get('db');
   t = await db.transaction();
   const o = { transaction: t };
   try {
-    data = await db.models.user.findByPk(idPar, o)
+    data = await db.models.user.findByPk(res.locals.id, o)
     if (!data) {
       return res.send(404)
     }
