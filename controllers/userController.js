@@ -33,7 +33,7 @@ exports.update = async function (req, res, next) {
     let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (user) {
       user.name = res.locals.name;
-      await user.save(t);
+      await user.save({ transaction: t });
       await t.commit();
       return res.sendStatus(200);
     } else {
@@ -54,7 +54,8 @@ exports.delete = async function (req, res, next) {
       return res.send(404)
     }
     else {
-      await user.destroy();
+      await user.destroy({ transaction: t });
+      await t.commit();
       return res.send(200);
     }
   } catch (err) {
