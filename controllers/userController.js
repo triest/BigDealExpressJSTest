@@ -48,7 +48,7 @@ exports.delete = async function (req, res, next) {
   const db = req.app.get('db');
   let t = await db.transaction();
   try {
-    user = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (!user) {
       return res.send(404)
     }
