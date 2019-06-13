@@ -47,9 +47,8 @@ exports.update = async function (req, res, next) {
 exports.delete = async function (req, res, next) {
   const db = req.app.get('db');
   t = await db.transaction();
-  const o = { transaction: t };
   try {
-    data = await db.models.user.findByPk(res.locals.id, o)
+    data = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (!data) {
       return res.send(404)
     }
