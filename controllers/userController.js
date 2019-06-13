@@ -1,6 +1,4 @@
-
 const filter = require('../controllers/filter.js');
-
 
 
 exports.index = async function (req, res, next) {
@@ -15,22 +13,23 @@ exports.index = async function (req, res, next) {
 };
 
 
+
 exports.get = async function (req, res, next) {
-  filter.validateId(req, res, next)
+ // filter.validateId(req,res,next);
   const db = req.app.get('db');
-  let id = req.params.id;
+  let id = res.locals.id;
   let user;
   try {
     user = await db.models.user.findByPk(id);
   } catch (err) {
-    next(err);
+    res.send(400)
   }
   res.json(user);
 };
 
 
 exports.update = async function (req, res, next) {
-  filter.validateId(req, res, validateName)
+  filter.validateId(req,res,next);
   let id = req.params.id;
   let name = req.query.name;
   const db = req.app.get('db');
@@ -49,7 +48,7 @@ exports.update = async function (req, res, next) {
 
 
 exports.delete = async function (req, res, next) {
-  filter.validateId(req, res, next)
+  filter.validateId(req,res,next);
   let idPar = req.params.id;
   const db = req.app.get('db');
   t = await db.transaction();
@@ -59,8 +58,10 @@ exports.delete = async function (req, res, next) {
     if (!data) {
       res.send(404)
     }
+    else{
     await data.destroy();
     res.send(200);
+    }
   } catch (err) {
     next(err)
   }
@@ -68,16 +69,16 @@ exports.delete = async function (req, res, next) {
 
 
 exports.create = async function (req, res, next) {
-  filter.validateName(req, res, next)
+  filter.validateName(req,res,next);
   const db = req.app.get('db');
   let data = req.body;
   let name = data["name"];
   try {
     await db.models.user.create({
-      name: name,
+      name: res.locals.name,
     })
   } catch (err) {
+    next(err)
   }
   res.send(201);
-}
-
+};
