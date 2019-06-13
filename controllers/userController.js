@@ -33,7 +33,8 @@ exports.update = async function (req, res, next) {
     let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (user) {
       user.name = res.locals.name;
-      await user.save();
+      await user.save(t);
+      await t.commit();
       return res.sendStatus(200);
     } else {
       return res.sendStatus(404)
