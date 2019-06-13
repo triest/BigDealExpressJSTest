@@ -20,8 +20,6 @@ exports.validateName = function (req, res, next) {
 
 exports.validatePutName = function (req, res, next) {
   let name = req.body.name;
-  console.log(name);
-  console.log("put name " + name)
   if (typeof name !== "string" || name == "") {
     return res.send(400);
   } else {
