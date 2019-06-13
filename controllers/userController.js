@@ -9,7 +9,7 @@ exports.index = async function (req, res, next) {
   } catch (err) {
     return next(err);
   }
-    return res.json(users);
+  return res.json(users);
 };
 
 exports.get = async function (req, res, next) {
@@ -21,7 +21,6 @@ exports.get = async function (req, res, next) {
   } catch (err) {
     return next(err);
   }
-
   if (!user) {
     return res.send(404)
   }
@@ -30,25 +29,23 @@ exports.get = async function (req, res, next) {
 
 
 exports.update = async function (req, res, next) {
-  let id = req.params.id;
-  console.log(id);
+  let id = res.locals.id;
   let name = req.query.name;
   const db = req.app.get('db');
   try {
     let result = await sequelize.transaction(
       async (t) => {
-        data = await db.models.user.findByPk(id,{transaction:t})
-       if (data) {
-       await data.update({ name: name },{transaction:t})
-       return res.sendStatus(200);
+        data = await db.models.user.findByPk(id, { transaction: t })
+        if (data) {
+          await data.update({ name: name }, { transaction: t })
+          return res.sendStatus(200);
         } else {
-        return res.sendStatus(404)
-       }
+          return res.sendStatus(404)
+        }
       }
-     );
+    );
   } catch (err) {
-   //return res.send(400)
-   return res.sendStatus(400);
+    return res.sendStatus(400);
   }
   res.sendStatus(200);
 };

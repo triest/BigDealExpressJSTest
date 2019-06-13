@@ -5,7 +5,7 @@ exports.validateId = function (req, res, next) {
     return res.send(400);
   }
   res.locals.id = id;
-   next();
+  next();
 };
 exports.validateName = function (req, res, next) {
   let name = req.body.name;
@@ -14,15 +14,15 @@ exports.validateName = function (req, res, next) {
   } else {
     res.locals.name = name;
   }
-   next()
+  next()
 };
 
-exports.validatePutName= function (req, res, next) {
+exports.validatePutName = function (req, res, next) {
   let name = req.params.name;
   if (typeof name !== "string" || name == "") {
     return res.send(400);
   } else {
     res.locals.name = name;
   }
-   next()
+  next()
 };
