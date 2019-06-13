@@ -5,7 +5,7 @@ exports.validateId = function (req, res, next) {
     return res.send(400);
   }
   res.locals.id = id;
-  return next();
+   next();
 };
 exports.validateName = function (req, res, next) {
   let name = req.body.name;
@@ -14,7 +14,7 @@ exports.validateName = function (req, res, next) {
   } else {
     res.locals.name = name;
   }
-  return next()
+   next()
 };
 
 exports.validatePutName= function (req, res, next) {
@@ -24,5 +24,5 @@ exports.validatePutName= function (req, res, next) {
   } else {
     res.locals.name = name;
   }
-  return next()
+   next()
 };
