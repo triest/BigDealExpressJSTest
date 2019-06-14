@@ -36,7 +36,7 @@ exports.update = async function (req, res, next) {
       return res.status(200).json(user);
     } else {
       await t.commit();
-      return res.sendStatus(404);
+      return res.status(404);
     }
   } catch (err) {
     if (t) {
