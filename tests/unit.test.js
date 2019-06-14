@@ -14,7 +14,7 @@ let UpdatePut = {
   name: 'put'
 };
 
-let lastid;
+var lastid;
 
 describe("User test", function () {
   /* beforeEach((done) => { //Перед каждым тестом чистим базу
@@ -74,23 +74,45 @@ describe("User test", function () {
     });
   })
 
-
-
-  it('test update', function (done) {
-    let lastId;
+  it('test delete', function (done) {
     request({
-      url: host + '/users' + lastId,
-      method: 'put',
-      json: false,
-      body: UpdatePut,
+      url: host + '/users/' + lastid,
+      method: 'DELETE',
+      json: true,
     }, function (err, response, body) {
       assert.strictEqual(err, null);
       assert.strictEqual(response.statusCode, 200);
-      body = JSON.parse(body);
-      // console.log(body[0]);
-      lastId = body[0].id;
+      request({
+        url: host + '/users/' + lastid,
+        method: 'get',
+        json: false,
+      }, function (err, response, body) {
+        assert.strictEqual(err, null);
+        assert.strictEqual(response.statusCode, 404);
+      });
+      done();
     });
   })
+
+  /*
+    it('test update', function (done) {
+      let lastId;
+      request({
+        url: host + '/users/' + lastId,
+        method: 'PUT',
+        json: true,
+        body: UpdatePut,
+      }, function (err, response, body) {
+        assert.strictEqual(err, null);
+        assert.strictEqual(response.statusCode, 201);
+        assert.strictEqual(response.body.name, UpdatePut.name)
+        lastid = response.body.id;
+        done();
+      });
+    })
+  */
+
+
 
 
 
