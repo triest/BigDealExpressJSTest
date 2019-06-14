@@ -27,7 +27,7 @@ describe("User test", function () {
   const assert = require('assert');
   const request = require('request');
   const host = "http://127.0.0.1:3000";
-  it('should get 200 and create acceptor', function (done) {
+  it('test post', function (done) {
     request({
       url: host + '/users',
       method: 'POST',
