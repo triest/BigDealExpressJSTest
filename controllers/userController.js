@@ -1,6 +1,3 @@
-const filter = require('../controllers/filter.js');
-
-
 exports.index = async function (req, res, next) {
   const db = req.app.get('db');
   let users;
