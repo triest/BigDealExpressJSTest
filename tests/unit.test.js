@@ -1,11 +1,3 @@
-
-
-var express = require('express');
-
-//const db = app.get('db');
-
-//var Users = db.models.users;
-
 let CorrectPost = {
   name: 'test'
 };
@@ -17,13 +9,6 @@ let UpdatePut = {
 var lastid;
 
 describe("User test", function () {
-  /* beforeEach((done) => { //Перед каждым тестом чистим базу
-     Users.remove({}, (err) => {
-       done();
-     });
-   });
-   */
-
   const assert = require('assert');
   const request = require('request');
   const host = "http://127.0.0.1:3000";
@@ -109,6 +94,5 @@ describe("User test", function () {
       done();
     });
   })
-
 });
 
