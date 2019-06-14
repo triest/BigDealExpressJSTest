@@ -83,6 +83,7 @@ describe("User test", function () {
     }, function (err, response, body) {
       assert.strictEqual(err, null);
       assert.strictEqual(response.statusCode, 200);
+      assert.strictEqual(typeof response.body.name, 'string')
       assert.strictEqual(response.body.name, UpdatePut.name)
       done();
     });
@@ -108,29 +109,6 @@ describe("User test", function () {
       done();
     });
   })
-
-  /*
-    it('test update', function (done) {
-      let lastId;
-      request({
-        url: host + '/users/' + lastId,
-        method: 'PUT',
-        json: true,
-        body: UpdatePut,
-      }, function (err, response, body) {
-        assert.strictEqual(err, null);
-        assert.strictEqual(response.statusCode, 201);
-        assert.strictEqual(response.body.name, UpdatePut.name)
-        lastid = response.body.id;
-        done();
-      });
-    })
-  */
-
-
-
-
-
 
 });
 
