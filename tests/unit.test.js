@@ -74,6 +74,21 @@ describe("User test", function () {
     });
   })
 
+  it('test update', function (done) {
+    request({
+      url: host + '/users/' + lastid,
+      method: 'PUT',
+      json: true,
+      body: UpdatePut,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 200);
+      assert.strictEqual(response.body.name, UpdatePut.name)
+      done();
+    });
+  })
+
+
   it('test delete', function (done) {
     request({
       url: host + '/users/' + lastid,
