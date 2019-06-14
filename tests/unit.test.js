@@ -2,6 +2,10 @@ let CorrectPost = {
   name: 'test'
 };
 
+let IncorrectPost = {
+  noname: ''
+}
+
 let UpdatePut = {
   name: 'put'
 };
@@ -59,6 +63,44 @@ describe("User test", function () {
     });
   })
 
+  it('fail  get single', function (done) {
+    request({
+      url: host + '/users/' + 9999999,
+      method: 'get',
+      json: false,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 404);
+      done();
+    });
+  })
+
+  it('wrong id type in get', function (done) {
+    request({
+      url: host + '/users/' + "it is id",
+      method: 'get',
+      json: false,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
+
+  it('no valid name in post', function (done) {
+    request({
+      url: host + '/users',
+      method: 'POST',
+      json: true,
+      body: IncorrectPost,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
+
+
   it('test update', function (done) {
     request({
       url: host + '/users/' + lastid,
@@ -74,8 +116,33 @@ describe("User test", function () {
     });
   })
 
+  it('incorrect update,wrong id', function (done) {
+    request({
+      url: host + '/users/' + 'fff',
+      method: 'PUT',
+      json: true,
+      body: UpdatePut,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
 
-  it('test delete', function (done) {
+  it('incorrect update,wrong name', function (done) {
+    request({
+      url: host + '/users/' + lastid,
+      method: 'PUT',
+      json: true,
+      body: IncorrectPost,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
+
+  it('valid delete', function (done) {
     request({
       url: host + '/users/' + lastid,
       method: 'DELETE',
@@ -91,6 +158,30 @@ describe("User test", function () {
         assert.strictEqual(err, null);
         assert.strictEqual(response.statusCode, 404);
       });
+      done();
+    });
+  })
+
+  it('incalid id in delete', function (done) {
+    request({
+      url: host + '/users/' + 'ds',
+      method: 'DELETE',
+      json: true,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
+
+  it('delete not found id', function (done) {
+    request({
+      url: host + '/users/' + 99999999999,
+      method: 'DELETE',
+      json: true,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 404);
       done();
     });
   })
