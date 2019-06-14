@@ -36,7 +36,7 @@ exports.update = async function (req, res, next) {
       user.name = res.locals.name;
       await user.save({ transaction: t });
       await t.commit();
-      return res.sendStatus(200);
+      return res.status(200).json(user);
     } else {
       await t.commit();
       return res.sendStatus(404);
