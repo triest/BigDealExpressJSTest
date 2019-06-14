@@ -6,6 +6,10 @@ let IncorrectPost = {
   noname: ''
 }
 
+let EmptyNamePost = {
+  name: ''
+}
+
 let UpdatePut = {
   name: 'put'
 };
@@ -31,6 +35,18 @@ describe("User test", function () {
     });
   })
 
+  it('empty name in post', function (done) {
+    request({
+      url: host + '/users',
+      method: 'POST',
+      json: true,
+      body: EmptyNamePost,
+    }, function (err, response, body) {
+      assert.strictEqual(err, null);
+      assert.strictEqual(response.statusCode, 400);
+      done();
+    });
+  })
 
 
   it('test get', function (done) {
