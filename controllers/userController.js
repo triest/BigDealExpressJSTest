@@ -28,8 +28,9 @@ exports.get = async function (req, res, next) {
 
 exports.update = async function (req, res, next) {
   const db = req.app.get('db');
+  let t;
   try {
-    let t = await db.transaction();
+    t = await db.transaction();
     let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (user) {
       user.name = res.locals.name;
@@ -37,20 +38,26 @@ exports.update = async function (req, res, next) {
       await t.commit();
       return res.sendStatus(200);
     } else {
-      return res.sendStatus(404)
+      await t.commit();
+      return res.sendStatus(404);
     }
   } catch (err) {
-    next(err)
+    if (t) {
+      await t.rollback();
+    }
+    next(err);
   }
 };
 
 
 exports.delete = async function (req, res, next) {
   const db = req.app.get('db');
-  let t = await db.transaction();
+  let t;
   try {
+    t = await db.transaction();
     let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
     if (!user) {
+      await t.commit();
       return res.send(404)
     }
     else {
@@ -59,18 +66,20 @@ exports.delete = async function (req, res, next) {
       return res.send(200);
     }
   } catch (err) {
-    next(err)
+    if (t) {
+      await t.rollback();
+    }
+    next(err);
   }
 };
 
 exports.create = async function (req, res, next) {
   const db = req.app.get('db');
   try {
-    await db.models.user.create({
+    return res.status(201).json(await db.models.user.create({
       name: res.locals.name,
-    })
+    }))
   } catch (err) {
     next(err)
   }
-  return res.send(201);
 };
