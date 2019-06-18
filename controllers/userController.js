@@ -1,5 +1,5 @@
-exports.index = async function (req, res, next) {
-  const db = req.app.get('db');
+exports.index = async function(req, res, next) {
+  const db = req.app.get("db");
   let users;
   try {
     users = await db.models.user.findAll();
@@ -9,8 +9,8 @@ exports.index = async function (req, res, next) {
   return res.json(users);
 };
 
-exports.get = async function (req, res, next) {
-  const db = req.app.get('db');
+exports.get = async function(req, res, next) {
+  const db = req.app.get("db");
   let user;
   try {
     user = await db.models.user.findByPk(res.locals.id);
@@ -18,17 +18,17 @@ exports.get = async function (req, res, next) {
     return next(err);
   }
   if (!user) {
-    return res.send(404)
+    return res.send(404);
   }
   return res.json(user);
 };
 
-exports.update = async function (req, res, next) {
-  const db = req.app.get('db');
+exports.update = async function(req, res, next) {
+  const db = req.app.get("db");
   let t;
   try {
     t = await db.transaction();
-    let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    let user = await db.models.user.findByPk(res.locals.id, { transaction: t });
     if (user) {
       user.name = res.locals.name;
       await user.save({ transaction: t });
@@ -46,18 +46,16 @@ exports.update = async function (req, res, next) {
   }
 };
 
-
-exports.delete = async function (req, res, next) {
-  const db = req.app.get('db');
+exports.delete = async function(req, res, next) {
+  const db = req.app.get("db");
   let t;
   try {
     t = await db.transaction();
-    let user = await db.models.user.findByPk(res.locals.id, { transaction: t })
+    let user = await db.models.user.findByPk(res.locals.id, { transaction: t });
     if (!user) {
       await t.commit();
-      return res.send(404)
-    }
-    else {
+      return res.send(404);
+    } else {
       await user.destroy({ transaction: t });
       await t.commit();
       return res.send(200);
@@ -70,13 +68,15 @@ exports.delete = async function (req, res, next) {
   }
 };
 
-exports.create = async function (req, res, next) {
-  const db = req.app.get('db');
+exports.create = async function(req, res, next) {
+  const db = req.app.get("db");
   try {
-    return res.status(201).json(await db.models.user.create({
-      name: res.locals.name,
-    }))
+    return res.status(201).json(
+      await db.models.user.create({
+        name: res.locals.name
+      })
+    );
   } catch (err) {
-    next(err)
+    next(err);
   }
 };
