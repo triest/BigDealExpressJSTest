@@ -22,7 +22,7 @@
     "request": "~2.81"
   },
   "devDependencies": {
-    "mocha": "6.1.4",
+    "mocha": "10.2.0",
     "nodemon": "~1.19.1"
   }
 }
